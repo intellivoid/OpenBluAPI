@@ -1,0 +1,26 @@
+{
+    "v1": {
+      "API": {
+        "AVAILABLE": true,
+        "UNAVAILABLE_MESSAGE": "The API is unavailable at the moment"
+      },
+      "POLICY": {
+        "AUTHENTICATION_REQUIRED": false,
+        "FORCE_CERTIFICATE": false
+      },
+      "MODULES":
+      {
+        "GetTime": {
+          "REQUIRE_AUTHENTICATION": false,
+          "REQUIRE_USAGE": false,
+          "POST_METHOD_ALLOWED": true,
+          "GET_METHOD_ALLOWED": true,
+          "SCRIPT": "get_time",
+          "PARAMETERS":
+          {
+            "timezone": {"REQUIRED": false, "DEFAULT": "example123"}
+          }
+        }
+      }
+    }
+}
