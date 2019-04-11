@@ -5,4 +5,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/(.*)$ index.php?version=$1&module=$2 [L,QSA]
 RewriteRule /?configuration.json$ - [F,L]
-ErrorDocument 404 index.php
+ErrorDocument 404 /index.php
