@@ -1,0 +1,11 @@
+##################################################################
+# The HTTP/HTTPS proxy setting.
+#
+# Only if you have to use the internet via a proxy, uncomment
+# below two lines and specify the proxy address and the port
+# number. In case of using proxy-authentication, refer the
+# OpenVPN manual
+#
+
+;http-proxy-retry
+;http-proxy [hostname] [port]
