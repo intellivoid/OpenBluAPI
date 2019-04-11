@@ -1,13 +1,14 @@
 <?php
 
     namespace ModularAPI\Exceptions;
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class AccessKeyNotFoundException
      * @package ModularAPI\Exceptions
      */
-    class AccessKeyNotFoundException extends \Exception
+    class AccessKeyNotFoundException extends Exception
     {
         /**
          * AccessKeyNotFoundException constructor.

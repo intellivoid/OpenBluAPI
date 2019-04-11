@@ -3,12 +3,13 @@
     namespace ModularAPI\Exceptions;
 
     use ModularAPI\Abstracts\ExceptionCodes;
+    use RuntimeException;
 
     /**
      * Class DatabaseException
      * @package ModularAPI\Exceptions
      */
-    class DatabaseException extends \RuntimeException
+    class DatabaseException extends RuntimeException
     {
         /**
          * @var string

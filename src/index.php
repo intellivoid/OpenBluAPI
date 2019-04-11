@@ -147,7 +147,7 @@
     catch(MissingParameterException $missingParameterException)
     {
         $ExecutionEnd = microtime(true);
-        missingParamerter($missingParameterException->ParamerterName);
+        missingParameter($missingParameterException->ParameterName);
     }
     catch(Exception $exception)
     {

@@ -1,6 +1,8 @@
 <?php
 
     namespace ModularAPI\HTTP;
+
+    use Exception;
     use ModularAPI\Abstracts\HTTP\ContentType;
     use ModularAPI\Abstracts\HTTP\FileType;
     use ModularAPI\Abstracts\HTTP\ResponseCode\ServerError;
@@ -19,11 +21,11 @@
          *
          * @param array $data
          * @param int $responseCode
-         * @param string $refrenceCode
+         * @param string $referenceCode
          * @return bool
          * @throws UnsupportedClientException
          */
-        public static function json(array $data, int $responseCode, string $refrenceCode = 'NONE'): bool
+        public static function json(array $data, int $responseCode, string $referenceCode = 'NONE'): bool
         {
             if(Checker::isWebRequest() == false)
             {
@@ -32,9 +34,9 @@
 
             try
             {
-                if(strtoupper($refrenceCode) !== 'NONE')
+                if(strtoupper($referenceCode) !== 'NONE')
                 {
-                    $data['ref_code'] = $refrenceCode;
+                    $data['ref_code'] = $referenceCode;
                 }
                 $Response = json_encode($data, JSON_PRETTY_PRINT);
                 Headers::setContentType(ContentType::application, FileType::json);
@@ -43,7 +45,7 @@
                 print($Response);
                 return true;
             }
-            catch(\Exception $exception)
+            catch(Exception $exception)
             {
                 $Payload = array(
                     'status' => false,

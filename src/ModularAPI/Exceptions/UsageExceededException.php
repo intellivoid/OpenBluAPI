@@ -2,13 +2,14 @@
 
     namespace ModularAPI\Exceptions;
 
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class UsageExceededException
      * @package ModularAPI\Exceptions
      */
-    class UsageExceededException extends \Exception
+    class UsageExceededException extends Exception
     {
         /**
          * UsageExceededException constructor.

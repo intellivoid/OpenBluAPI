@@ -2,13 +2,14 @@
 
     namespace ModularAPI\Exceptions;
 
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class AccessKeyExpiredException
      * @package ModularAPI\Exceptions
      */
-    class AccessKeyExpiredException extends \Exception
+    class AccessKeyExpiredException extends Exception
     {
         /**
          * AccessKeyExpiredException constructor.

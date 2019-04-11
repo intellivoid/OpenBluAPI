@@ -36,7 +36,8 @@
          *
          * @param AccessKey $accessKey
          * @return AccessKey
-         * @throws DatabaseException
+         * @throws NoResultsFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function register(AccessKey $accessKey): AccessKey
         {
@@ -130,6 +131,7 @@
          * @param AccessKey $accessKey
          * @return bool
          * @throws AccessKeyNotFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function update(AccessKey $accessKey): bool
         {

@@ -175,15 +175,15 @@
     }
 
     /**
-     * @param string $paramerter_name
+     * @param string $parameter_name
      * @throws UnsupportedClientException
      */
-    function missingParamerter(string $paramerter_name)
+    function missingParameter(string $parameter_name)
     {
         $Payload = array(
             'status' => false,
             'code' => ClientError::_400,
-            'message' => 'The paramerter "' . $paramerter_name . '" is missing'
+            'message' => 'The parameter "' . $parameter_name . '" is missing'
         );
         Response::json($Payload, ClientError::_400);
         exit();

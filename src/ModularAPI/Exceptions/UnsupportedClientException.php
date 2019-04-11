@@ -2,13 +2,14 @@
 
     namespace ModularAPI\Exceptions;
 
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class UnsupportedClientException
      * @package ModularAPI\Exceptions
      */
-    class UnsupportedClientException extends \Exception
+    class UnsupportedClientException extends Exception
     {
         /**
          * UnsupportedClientException constructor.

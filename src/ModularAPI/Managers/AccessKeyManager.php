@@ -6,7 +6,10 @@
     use ModularAPI\Abstracts\AccessKeyStatus;
     use ModularAPI\DatabaseManager\AccessKeys;
     use ModularAPI\Exceptions\AccessKeyExpiredException;
+    use ModularAPI\Exceptions\AccessKeyNotFoundException;
     use ModularAPI\Exceptions\InvalidAccessKeyStatusException;
+    use ModularAPI\Exceptions\NoResultsFoundException;
+    use ModularAPI\Exceptions\UnsupportedSearchMethodException;
     use ModularAPI\Exceptions\UsageExceededException;
     use ModularAPI\ModularAPI;
     use ModularAPI\Objects\AccessKey;
@@ -49,6 +52,8 @@
          * @param int|AccessKeyStatus $startingState
          * @return AccessKey
          * @throws InvalidAccessKeyStatusException
+         * @throws NoResultsFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function createKey(array $usageConfiguration, array $permissionsConfiguration, int $startingState = 0): AccessKey
         {
@@ -129,6 +134,8 @@
          *
          * @param string $certificate
          * @return AccessKey
+         * @throws NoResultsFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function verifyCertificate(string $certificate): AccessKey
         {
@@ -140,6 +147,8 @@
          *
          * @param string $api_key
          * @return AccessKey
+         * @throws NoResultsFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function verifyAPIKey(string $api_key): AccessKey
         {
@@ -151,6 +160,8 @@
          *
          * @param string $public_id
          * @return AccessKey
+         * @throws NoResultsFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function getAccessKey(string $public_id): AccessKey
         {
@@ -165,6 +176,8 @@
          * @return bool
          * @throws UsageExceededException
          * @throws AccessKeyExpiredException
+         * @throws AccessKeyNotFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function trackUsage(AccessKey $accessKey, bool $trackExceeding): bool
         {
@@ -179,6 +192,8 @@
          * Changes the access key's signatures to new signatures
          *
          * @param AccessKey $accessKey
+         * @throws AccessKeyNotFoundException
+         * @throws UnsupportedSearchMethodException
          */
         public function changeSignatures(AccessKey $accessKey)
         {

@@ -3,6 +3,7 @@
     namespace ModularAPI\Objects;
     use ModularAPI\Abstracts\HTTP\ContentType;
     use ModularAPI\Abstracts\HTTP\FileType;
+    use ModularAPI\Exceptions\UnsupportedClientException;
 
     /**
      * Class Response
@@ -34,6 +35,7 @@
         /**
          * Executes the response to the HTTP Client
          * @param string $refrenceCode
+         * @throws UnsupportedClientException
          */
         public function executeResponse(string $refrenceCode = 'NONE')
         {

@@ -1,13 +1,14 @@
 <?php
 
     namespace ModularAPI\Exceptions;
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class NoResultsFoundException
      * @package ModularAPI\Exceptions
      */
-    class NoResultsFoundException extends \Exception
+    class NoResultsFoundException extends Exception
     {
         /**
          * NoResultsFoundException constructor.

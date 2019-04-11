@@ -1,6 +1,7 @@
 <?php
 
     namespace ModularAPI\HTTP;
+    use Exception;
     use ModularAPI\Abstracts\HTTP\ResponseCode\ClientError;
     use ModularAPI\Abstracts\HTTP\ResponseCode\Information;
     use ModularAPI\Abstracts\HTTP\ResponseCode\Redirect;
@@ -70,7 +71,7 @@
             {
                 $ContentLength = (bool)strlen($data);
             }
-            catch(\Exception $exception)
+            catch(Exception $exception)
             {
                 $ContentLength = 0;
             }

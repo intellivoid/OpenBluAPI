@@ -1,13 +1,14 @@
 <?php
 
     namespace ModularAPI\Exceptions;
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidRequestQueryException
      * @package ModularAPI\Exceptions
      */
-    class InvalidRequestQueryException extends \Exception
+    class InvalidRequestQueryException extends Exception
     {
         /**
          * InvalidRequestQueryException constructor.

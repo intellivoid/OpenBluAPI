@@ -1,13 +1,14 @@
 <?php
 
     namespace ModularAPI\Exceptions;
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidAccessKeyStatusException
      * @package ModularAPI\Exceptions
      */
-    class InvalidAccessKeyStatusException extends \Exception
+    class InvalidAccessKeyStatusException extends Exception
     {
         /**
          * InvalidAccessKeyStatusException constructor.

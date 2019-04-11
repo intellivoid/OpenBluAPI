@@ -2,13 +2,14 @@
 
     namespace ModularAPI\Exceptions;
 
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class DatabaseNotEstablishedException
      * @package ModularAPI\Exceptions
      */
-    class DatabaseNotEstablishedException extends \Exception
+    class DatabaseNotEstablishedException extends Exception
     {
         /**
          * DatabaseNotEstablishedException constructor.

@@ -3,13 +3,13 @@
     namespace ModularAPI\Objects;
 
     /**
-     * Class Paramerter
+     * Class Parameter
      * @package ModularAPI\Objects
      */
-    class Paramerter
+    class Parameter
     {
         /**
-         * The name of the Paramerter
+         * The name of the Parameter
          *
          * @var string
          */
@@ -23,7 +23,7 @@
         public $Required;
 
         /**
-         * The default value of this paramerter (If this paramerter is not required)
+         * The default value of this parameter (If this parameter is not required)
          *
          * @var string
          */
@@ -49,32 +49,32 @@
          * 
          * @param string $name
          * @param array $data
-         * @return Paramerter
+         * @return Parameter
          */
-        public static function fromArray(string $name, array $data): Paramerter
+        public static function fromArray(string $name, array $data): Parameter
         {
-            $ParamerterObject = new Paramerter();
+            $parameter = new Parameter();
 
-            $ParamerterObject->Name = $name;
+            $parameter->Name = $name;
 
             if(isset($data['REQUIRED']))
             {
-                $ParamerterObject->Required = (bool)$data['REQUIRED'];
+                $parameter->Required = (bool)$data['REQUIRED'];
             }
             else
             {
-                $ParamerterObject->Required = true;
+                $parameter->Required = true;
             }
             
             if(isset($data['DEFAULT']))
             {
-                $ParamerterObject->Default = (string)$data['DEFAULT'];
+                $parameter->Default = (string)$data['DEFAULT'];
             }
             else
             {
-                $ParamerterObject->Default = null;
+                $parameter->Default = null;
             }
             
-            return $ParamerterObject;
+            return $parameter;
         }
     }

@@ -1,13 +1,14 @@
 <?php
 
     namespace ModularAPI\Exceptions;
+    use Exception;
     use ModularAPI\Abstracts\ExceptionCodes;
 
     /**
      * Class UnsupportedSearchMethodException
      * @package ModularAPI\Exceptions
      */
-    class UnsupportedSearchMethodException extends \Exception
+    class UnsupportedSearchMethodException extends Exception
     {
         /**
          * UnsupportedSearchMethodException constructor.

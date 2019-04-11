@@ -4,6 +4,7 @@
 
     use ModularAPI\DatabaseManager\Requests;
     use ModularAPI\Managers\AccessKeyManager;
+    use mysqli;
 
     define('MODULAR_API', __DIR__ . DIRECTORY_SEPARATOR);
 
@@ -48,7 +49,7 @@
     include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'Configuration.php');
     include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'ExceptionDetails.php');
     include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'Module.php');
-    include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'Paramerter.php');
+    include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'Parameter.php');
     include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'Policies.php');
     include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'RequestAuthentication.php');
     include_once(MODULAR_API . 'Objects' . DIRECTORY_SEPARATOR . 'RequestQuery.php');
@@ -69,7 +70,7 @@
         /**
          * The Database connection, null if Database connection isn't established
          *
-         * @var null|\mysqli
+         * @var null|mysqli
          */
         public $Database;
 
@@ -95,7 +96,7 @@
 
             if($EstablishDatabaseConnection == true)
             {
-                $this->Database = new \mysqli(
+                $this->Database = new mysqli(
                     $Configuration['ModularAPI_DatabaseHost'],
                     $Configuration['ModularAPI_DatabaseUsername'],
                     $Configuration['ModularAPI_DatabasePassword'],
