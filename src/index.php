@@ -17,6 +17,7 @@
     use ModularAPI\Exceptions\UsageExceededException;
     use ModularAPI\HTTP\Request;
     use ModularAPI\ModularAPI;
+    use ModularAPI\Objects\AccessKey;
     use ModularAPI\Objects\ExceptionDetails;
     use ModularAPI\Objects\Response;
 
@@ -38,7 +39,6 @@
     if($Configuration->Policies->AuthenticatedRequired == true)
     {
         $AccessKey = verifyAuthentication($ModularAPI, $Configuration->Policies->ForceCertificate);
-
         if($AccessKey->Usage->expired() == true)
         {
             keyExpiredError();
@@ -107,17 +107,26 @@
         }
     }
 
-    try
+    if($AccessKey == null)
     {
-        $ModularAPI->AccessKeys()->trackUsage($AccessKey, $Module->RequireUsage);
+        $AccessKey = new AccessKey();
+        $AccessKey->PublicID = 'NONE';
+        $AccessKey->ID = 0;
     }
-    catch(AccessKeyExpiredException $accessKeyExpiredException)
+    else
     {
-        keyExpiredError();
-    }
-    catch(UsageExceededException $usageExceededException)
-    {
-        usageExceededError();
+        try
+        {
+            $ModularAPI->AccessKeys()->trackUsage($AccessKey, $Module->RequireUsage);
+        }
+        catch(AccessKeyExpiredException $accessKeyExpiredException)
+        {
+            keyExpiredError();
+        }
+        catch(UsageExceededException $usageExceededException)
+        {
+            usageExceededError();
+        }
     }
 
     $SafeVersion = str_ireplace('/', '_', $Query->Version);

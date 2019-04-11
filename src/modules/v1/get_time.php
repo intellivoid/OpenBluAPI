@@ -12,7 +12,7 @@
      * @param array $Parameters
      * @return Response
      */
-    function Module(AccessKey $accessKey, array $Parameters): Response
+    function Module(?AccessKey $accessKey, array $Parameters): Response
     {
         $Response = new Response();
         $Response->ResponseCode = Successful::_200;
