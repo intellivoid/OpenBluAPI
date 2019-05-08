@@ -29,4 +29,17 @@
         {
             return hash('crc32b', hash('crc32', $ipAddress)) . hash('crc32', $ipAddress);
         }
+
+        /**
+         * Calculates the Public ID for a client
+         *
+         * @param string $client_uid
+         * @param string $client_name
+         * @param int $registered_timestamp
+         * @return string
+         */
+        public static function calculateClientPublicID(string $client_uid, string $client_name, int $registered_timestamp): string
+        {
+            return hash('crc32b', $client_uid) . hash('crc32b', $client_name) . hash('crc32b', $registered_timestamp);
+        }
     }
