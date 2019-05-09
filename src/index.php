@@ -21,10 +21,15 @@
     use ModularAPI\Objects\ExceptionDetails;
     use ModularAPI\Objects\Response;
 
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'ModularAPI' . DIRECTORY_SEPARATOR . 'ModularAPI.php');
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'ModularAPI' . DIRECTORY_SEPARATOR . 'ModularAPI.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'authentication.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'generic_responses.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'request.php');
+
+    // Extra imports
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'check_plan.php');
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'OpenBlu' . DIRECTORY_SEPARATOR . 'OpenBlu.php');
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'IntellivoidAccounts' . DIRECTORY_SEPARATOR . 'IntellivoidAccounts.php');
 
     $Configuration = verifyRequest();
 
@@ -148,6 +153,9 @@
     try
     {
         $Parameters = Request::getParameters($Module->Parameters);
+
+
+
         /** @noinspection PhpIncludeInspection */
         include($ModuleFile);
         $Response = Module($AccessKey, $Parameters);

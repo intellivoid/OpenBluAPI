@@ -14,7 +14,6 @@
     use ModularAPI\ModularAPI;
     use ModularAPI\Objects\AccessKey;
     use OpenBlu\Abstracts\BillingCycle;
-    use OpenBlu\Exceptions\ConfigurationNotFoundException;
     use OpenBlu\OpenBlu;
 
     /**

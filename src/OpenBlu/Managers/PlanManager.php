@@ -4,6 +4,7 @@
 
     use Exception;
     use ModularAPI\Abstracts\AccessKeySearchMethod;
+    use ModularAPI\Abstracts\UsageType;
     use ModularAPI\Configurations\UsageConfiguration;
     use ModularAPI\Exceptions\AccessKeyNotFoundException;
     use ModularAPI\Exceptions\InvalidAccessKeyStatusException;
@@ -11,10 +12,14 @@
     use ModularAPI\Exceptions\UnsupportedSearchMethodException;
     use ModularAPI\ModularAPI;
     use ModularAPI\Objects\AccessKey;
+    use ModularAPI\Utilities\Builder;
     use ModularAPI\Utilities\Hashing;
+    use OpenBlu\Abstracts\APIPlan;
     use OpenBlu\Abstracts\SearchMethods\PlanSearchMethod;
     use OpenBlu\Exceptions\DatabaseException;
+    use OpenBlu\Exceptions\InvalidApiPlanTypeException;
     use OpenBlu\Exceptions\InvalidSearchMethodException;
+    use OpenBlu\Exceptions\PlanNotFoundException;
     use OpenBlu\Exceptions\UpdateRecordNotFoundException;
     use OpenBlu\Objects\Plan;
     use OpenBlu\OpenBlu;
@@ -57,13 +62,25 @@
          */
         public function createPlan(Plan $plan): Plan
         {
-            // Create an access key
-            $AccessKey = $this->modularApi->AccessKeys()->createKey(
-                UsageConfiguration::dateIntervalLimit($plan->MonthlyCalls, 2628002),
-                array(
-                    'test'
-                )
-            );
+            if($plan->MonthlyCalls == 0)
+            {
+                $AccessKey = $this->modularApi->AccessKeys()->createKey(
+                    UsageConfiguration::unlimited(),
+                    array(
+                        'test'
+                    )
+                );
+            }
+            else
+            {
+                $AccessKey = $this->modularApi->AccessKeys()->createKey(
+                    UsageConfiguration::dateIntervalLimit($plan->MonthlyCalls, 2628002),
+                    array(
+                        'test'
+                    )
+                );
+            }
+
 
             $current_time = time();
 
@@ -162,12 +179,16 @@
          * @param Plan $plan
          * @return bool
          * @throws DatabaseException
+         * @throws NoResultsFoundException
+         * @throws PlanNotFoundException
+         * @throws UnsupportedSearchMethodException
+         * @throws AccessKeyNotFoundException
          */
         function updatePlan(Plan $plan): bool
         {
             if($this->IdExists($plan->Id) == false)
             {
-
+                throw new PlanNotFoundException();
             }
 
             $id = (int)$plan->Id;
@@ -186,14 +207,31 @@
             $Query = "UPDATE `plans` SET active=$active, account_id=$account_id, access_key_id=$access_key_id, plan_type=$plan_type, promotion_code='$promotion_code', monthly_calls=$monthly_calls, price_per_cycle=$price_per_cycle, next_billing_cycle=$next_billing_cycle, billing_cycle=$billing_cycle, payment_required=$payment_required, plan_started=$plan_started WHERE id=$id";
             $QueryResults = $this->openBlu->database->query($Query);
 
-            if($QueryResults == true)
-            {
-                return true;
-            }
-            else
+            if($QueryResults == false)
             {
                 throw new DatabaseException($this->openBlu->database->error, $Query);
             }
+
+            $AccessKeyObject = $this->modularApi->AccessKeys()->Manager->get(AccessKeySearchMethod::byID, $plan->AccessKeyId);
+
+            if($plan->MonthlyCalls == 0)
+            {
+                $AccessKeyObject->Usage->UsageType = UsageType::Unlimited;
+                $AccessKeyObject->Usage->ResetInterval = 0;
+                $AccessKeyObject->Usage->NextInterval = 0;
+                $AccessKeyObject->Usage->Limit = 0;
+            }
+            else
+            {
+                $AccessKeyObject->Usage->UsageType = UsageType::DateIntervalLimit;
+                $AccessKeyObject->Usage->ResetInterval = 2628002;
+                $AccessKeyObject->Usage->NextInterval = 0;
+                $AccessKeyObject->Usage->Limit = $plan->MonthlyCalls;
+            }
+
+            $this->modularApi->AccessKeys()->Manager->update($AccessKeyObject);
+
+            return true;
         }
 
         /**
@@ -282,4 +320,161 @@
 
             return $AccessKeyObject;
         }
+
+        /**
+         * @param int $accountId
+         * @param string $planType
+         * @param int $monthlyCalls
+         * @param int $billingCycle
+         * @param float $price
+         * @param string $promotion_code
+         * @return Plan
+         * @throws AccessKeyNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidAccessKeyStatusException
+         * @throws InvalidSearchMethodException
+         * @throws NoResultsFoundException
+         * @throws PlanNotFoundException
+         * @throws UnsupportedSearchMethodException
+         * @throws UpdateRecordNotFoundException
+         * @throws InvalidApiPlanTypeException
+         */
+        function startPlan(int $accountId, string $planType, int $monthlyCalls, int $billingCycle, float $price, string $promotion_code = 'NORMAL'): Plan
+        {
+            $PlanExists = false;
+            $Plan = new Plan();
+
+            // If the plan exists, load it from the datbase
+            if($this->accountIdExists($accountId) == true)
+            {
+                $Plan = $this->getPlan(PlanSearchMethod::byAccountId, $accountId);
+                $PlanExists = true;
+            }
+
+            // Set the properties
+            $Plan->BillingCycle = $billingCycle;
+            $Plan->PricePerCycle = $price;
+            $Plan->MonthlyCalls = $monthlyCalls;
+            $Plan->PromotionCode = $promotion_code;
+            $Plan->Active = true;
+            $Plan->PlanStarted = true;
+
+            // Set the plan type
+            switch($planType)
+            {
+                case APIPlan::Free:
+                    $Plan->PlanType = APIPlan::Free;
+                    break;
+
+                case APIPlan::Basic:
+                    $Plan->PlanType = APIPlan::Basic;
+                    break;
+
+                case APIPlan::Enterprise:
+                    $Plan->PlanType = APIPlan::Enterprise;
+                    break;
+
+                default:
+                    throw new InvalidApiPlanTypeException();
+            }
+
+            $AccessKey = null;
+
+            // If the plan didn't exist, create a new access key
+            if($PlanExists == false)
+            {
+                // If monthly calls is set to 0, create an unlimited key
+                if($Plan->MonthlyCalls == 0)
+                {
+                    $AccessKey = $this->modularApi->AccessKeys()->createKey(
+                        UsageConfiguration::unlimited(),
+                        array(
+                            'type' => 'allow_all_permissions'
+                        )
+                    );
+                }
+                // Else, create a normal key that resets each month
+                else
+                {
+                    $AccessKey = $this->modularApi->AccessKeys()->createKey(
+                        UsageConfiguration::dateIntervalLimit($Plan->MonthlyCalls, 2628002),
+                        array(
+                            'type' => 'allow_all_permissions'
+                        )
+                    );
+                }
+
+                $Plan->AccessKeyId = $AccessKey->ID;
+            }
+            else
+            {
+                $AccessKey = $this->modularApi->AccessKeys()->Manager->get(AccessKeySearchMethod::byID, $Plan->AccessKeyId);
+
+                $AccessKey->Analytics->LastMonthAvailable = false;
+                $AccessKey->Analytics->LastMonthID = null;
+                $AccessKey->Analytics->LastMonthUsage = [];
+
+                $AccessKey->Analytics->CurrentMonthAvailable = true;
+                $AccessKey->Analytics->CurrentMonthID = Hashing::calculateMonthID((int)date('n'), (int)date('Y'));
+                $AccessKey->Analytics->CurrentMonthUsage = Builder::createMonthArray();
+
+                if($Plan->MonthlyCalls == 0)
+                {
+                    $AccessKey->Usage->loadConfiguration(
+                        UsageConfiguration::unlimited()
+                    );
+                }
+                else
+                {
+                    $AccessKey->Usage->loadConfiguration(
+                        UsageConfiguration::dateIntervalLimit($Plan->MonthlyCalls, 2628002)
+                    );
+                }
+
+                $this->modularApi->AccessKeys()->Manager->update($AccessKey);
+            }
+
+            $Plan->NextBillingCycle = time() + $Plan->BillingCycle;
+
+            if($PlanExists == true)
+            {
+                $this->updatePlan($Plan);
+                $this->updateSignatures($Plan);
+                return $Plan;
+            }
+
+            return $this->createPlan($Plan);
+        }
+
+        /**
+         * Cancels an existing plan
+         *
+         * @param int $account_id
+         * @return bool
+         * @throws AccessKeyNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws NoResultsFoundException
+         * @throws PlanNotFoundException
+         * @throws UnsupportedSearchMethodException
+         * @throws UpdateRecordNotFoundException
+         */
+        function cancelPlan(int $account_id): bool
+        {
+            if($this->accountIdExists($account_id) == false)
+            {
+                return false;
+            }
+
+            $Plan = $this->getPlan(PlanSearchMethod::byAccountId, $account_id);
+
+            $Plan->Active = false;
+            $Plan->PlanStarted = false;
+            $Plan->NextBillingCycle = 0;
+
+            $this->updatePlan($Plan);
+
+            return true;
+        }
+
     }

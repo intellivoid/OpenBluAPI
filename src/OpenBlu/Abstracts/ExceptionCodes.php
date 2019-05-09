@@ -19,4 +19,5 @@
         const PlanNotFoundException = 108;
         const InvalidClientPropertyException = 109;
         const ClientNotFoundException = 110;
+        const InvalidApiPlanTypeException = 111;
     }
