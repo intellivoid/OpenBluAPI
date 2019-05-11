@@ -28,7 +28,7 @@
             $Response->ResponseType = ContentType::application . '/' . FileType::json;
             $Response->Content = array(
                 'status' => false,
-                'code' => ClientError::_404,
+                'status_code' => ClientError::_404,
                 'message' => 'The requested VPN server was not found'
             );
 
@@ -41,7 +41,7 @@
             $Response->ResponseType = ContentType::application . '/' . FileType::json;
             $Response->Content = array(
                 'status' => false,
-                'code' => ServerError::_500,
+                'status_code' => ServerError::_500,
                 'message' => 'Internal Server Error'
             );
 
@@ -55,7 +55,7 @@
         $Response->ResponseType = ContentType::application . '/' . FileType::json;
         $Response->Content = array(
             'status' => true,
-            'code' => Successful::_200,
+            'status_code' => Successful::_200,
             'payload' => array(
                 'id' => $Server->PublicID,
                 'host_name' => $Server->HostName,

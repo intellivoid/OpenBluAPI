@@ -46,7 +46,7 @@
         $Response->ResponseType = ContentType::application . '/' . FileType::json;
         $Response->Content = array(
             'status' => true,
-            'code' => Successful::_200,
+            'status_code' => Successful::_200,
             'payload' => $Results
         );
 
