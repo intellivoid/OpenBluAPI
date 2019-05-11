@@ -10,17 +10,6 @@
       },
       "MODULES":
       {
-        "GetTime": {
-          "REQUIRE_AUTHENTICATION": true,
-          "REQUIRE_USAGE": true,
-          "POST_METHOD_ALLOWED": true,
-          "GET_METHOD_ALLOWED": true,
-          "SCRIPT": "get_time",
-          "PARAMETERS":
-          {
-            "timezone": {"REQUIRED": false, "DEFAULT": "example123"}
-          }
-        },
         "GetServers": {
           "REQUIRE_AUTHENTICATION": true,
           "REQUIRE_USAGE": true,
