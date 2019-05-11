@@ -23,6 +23,17 @@
             "order_by": {"REQUIRED":  false, "DEFAULT":  "current_sessions"},
             "order_direction": {"REQUIRED": false, "DEFAULT":  "ascending"}
           }
+        },
+        "GetServer": {
+          "REQUIRE_AUTHENTICATION": true,
+          "REQUIRE_USAGE": true,
+          "POST_METHOD_ALLOWED": true,
+          "GET_METHOD_ALLOWED": true,
+          "SCRIPT": "get_server",
+          "PARAMETERS":
+          {
+            "server_id": {"REQUIRED": true}
+          }
         }
       }
     }
