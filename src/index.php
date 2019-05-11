@@ -153,8 +153,7 @@
     try
     {
         $Parameters = Request::getParameters($Module->Parameters);
-
-
+        checkPlan($AccessKey);
 
         /** @noinspection PhpIncludeInspection */
         include($ModuleFile);

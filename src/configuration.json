@@ -20,6 +20,20 @@
           {
             "timezone": {"REQUIRED": false, "DEFAULT": "example123"}
           }
+        },
+        "GetServers": {
+          "REQUIRE_AUTHENTICATION": true,
+          "REQUIRE_USAGE": true,
+          "POST_METHOD_ALLOWED": true,
+          "GET_METHOD_ALLOWED": true,
+          "SCRIPT": "get_servers",
+          "PARAMETERS":
+          {
+            "filter_by": {"REQUIRED": false, "DEFAULT": "none"},
+            "filter": {"REQUIRED": false, "DEFAULT":  "none"},
+            "order_by": {"REQUIRED":  false, "DEFAULT":  "current_sessions"},
+            "order_direction": {"REQUIRED": false, "DEFAULT":  "ascending"}
+          }
         }
       }
     }

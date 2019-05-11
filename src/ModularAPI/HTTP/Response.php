@@ -55,7 +55,7 @@
                 $Response = json_encode($Payload, JSON_PRETTY_PRINT);
                 Headers::setContentType(ContentType::application, FileType::json);
                 Headers::setResponseCode(ServerError::_500);
-                Headers::setContentLength($Response);
+                Headers::setContentLength(strlen($Response));
                 print($Response);
             }
 
@@ -81,7 +81,7 @@
 
             Headers::i_setContentType($contentType);
             Headers::setResponseCode($responseCode);
-            Headers::setContentLength($data);
+            Headers::setContentLength(strlen($data));
 
             print($data);
 
