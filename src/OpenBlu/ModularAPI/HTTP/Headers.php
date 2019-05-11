@@ -56,11 +56,11 @@
         /**
          * Sets Content-Length HTTP Header
          *
-         * @param $data
-         * @return int
+         * @param int $length
+         * @return bool
          * @throws UnsupportedClientException
          */
-        public static function setContentLength($data): int
+        public static function setContentLength(int $length): bool
         {
             if(Checker::isWebRequest() == false)
             {
@@ -69,7 +69,7 @@
 
             try
             {
-                $ContentLength = (bool)strlen($data);
+                $ContentLength = (int)$length;
             }
             catch(Exception $exception)
             {
@@ -82,7 +82,7 @@
             }
 
             header('Content-Length: ' . (string)$ContentLength);
-            return $ContentLength;
+            return true;
         }
 
         /**
