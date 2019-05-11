@@ -3,13 +3,14 @@
 
     namespace OpenBlu\Exceptions;
 
+    use Exception;
     use OpenBlu\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidApiPlanTypeException
      * @package OpenBlu\Exceptions
      */
-    class InvalidApiPlanTypeException extends \Exception
+    class InvalidApiPlanTypeException extends Exception
     {
         /**
          * InvalidApiPlanTypeException constructor.

@@ -3,13 +3,14 @@
 
     namespace OpenBlu\Exceptions;
 
+    use Exception;
     use OpenBlu\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidClientPropertyException
      * @package OpenBlu\Exceptions
      */
-    class InvalidClientPropertyException extends \Exception
+    class InvalidClientPropertyException extends Exception
     {
         /**
          * InvalidClientPropertyException constructor.

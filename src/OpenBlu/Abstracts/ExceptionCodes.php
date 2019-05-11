@@ -20,4 +20,10 @@
         const InvalidClientPropertyException = 109;
         const ClientNotFoundException = 110;
         const InvalidApiPlanTypeException = 111;
+        const LimitExceedingException = 112;
+        const InvalidFilterTypeException = 113;
+        const InvalidOrderByTypeException = 114;
+        const InvalidOrderDirectionException = 115;
+        const InvalidFilterValueException = 116;
+        const NoResultsFoundException = 117;
     }

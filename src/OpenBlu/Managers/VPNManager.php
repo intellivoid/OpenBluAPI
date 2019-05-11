@@ -2,9 +2,18 @@
 
     namespace OpenBlu\Managers;
 
+    use OpenBlu\Abstracts\FilterType;
+    use OpenBlu\Abstracts\OrderBy;
+    use OpenBlu\Abstracts\OrderDirection;
     use OpenBlu\Exceptions\DatabaseException;
+    use OpenBlu\Exceptions\InvalidFilterTypeException;
+    use OpenBlu\Exceptions\InvalidFilterValueException;
     use OpenBlu\Exceptions\InvalidIPAddressException;
+    use OpenBlu\Exceptions\InvalidOrderByTypeException;
+    use OpenBlu\Exceptions\InvalidOrderDirectionException;
     use OpenBlu\Exceptions\InvalidSearchMethodException;
+    use OpenBlu\Exceptions\LimitExceedingException;
+    use OpenBlu\Exceptions\NoResultsFoundException;
     use OpenBlu\Exceptions\PageNotFoundException;
     use OpenBlu\Exceptions\VPNNotFoundException;
     use OpenBlu\Objects\VPN;
@@ -416,6 +425,125 @@
                 }
 
                 return $ResultsArray;
+            }
+        }
+
+
+        /**
+         * Gets a list of servers, via various filters
+         *
+         * @param FilterType|string $filter_type
+         * @param string $filter_value
+         * @param OrderBy|string $order_by
+         * @param OrderDirection|string $order_direction
+         * @return array
+         * @throws InvalidFilterTypeException
+         * @throws InvalidOrderByTypeException
+         * @throws InvalidOrderDirectionException
+         * @throws InvalidFilterValueException
+         * @throws DatabaseException
+         * @throws NoResultsFoundException
+         */
+        public function filterGetServers(string $filter_type = FilterType::None, string $filter_value = 'OPTIONAL', string $order_by = OrderBy::byLastUpdated, string $order_direction = OrderDirection::Ascending): array
+        {
+            $Query = "SELECT public_id, ip_address, score, ping, country, country_short, sessions, total_sessions, last_updated, created FROM `vpns`";
+
+            switch($filter_type)
+            {
+                case FilterType::None:
+                    break;
+
+                case FilterType::byCountry:
+                    if(strlen($filter_value) !== 2)
+                    {
+                        throw new InvalidFilterValueException();
+                    }
+
+                    $filter_value = strtoupper($filter_value);
+                    $filter_value = $this->openBlu->database->real_escape_string($filter_value);
+
+                    $Query .= " WHERE country_short='$filter_value'";
+
+                    break;
+
+                default:
+                    throw new InvalidFilterTypeException();
+            }
+
+            switch($order_by)
+            {
+                case OrderBy::byScore:
+                    $Query .= " ORDER BY score";
+                    break;
+
+                case OrderBy::byCurrentSessions:
+                    $Query .= " ORDER BY sessions";
+                    break;
+
+                case OrderBy::byPing:
+                    $Query .= " ORDER BY ping";
+                    break;
+
+                case OrderBy::byTotalSessions:
+                    $Query .= " ORDER BY total_sessions";
+                    break;
+
+                case OrderBy::byLastUpdated:
+                    $Query = " ORDER BY last_updated";
+                    break;
+
+                default:
+                    throw new InvalidOrderByTypeException();
+            }
+
+            switch($order_direction)
+            {
+                case OrderDirection::Ascending:
+                    $Query .= " DESC";
+                    break;
+
+                case OrderDirection::Descending:
+                    $Query .= " ASC";
+                    break;
+
+                default:
+                    throw new InvalidOrderDirectionException();
+            }
+
+            $QueryResults = $this->openBlu->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($this->openBlu->database->error, $Query);
+            }
+            else
+            {
+                if($QueryResults->num_rows == 0)
+                {
+                    throw new NoResultsFoundException();
+                }
+
+                $Results = array(
+                    'total_results' => $QueryResults->num_rows,
+                    'servers' => []
+                );
+
+                while ($Row = $QueryResults->fetch_assoc())
+                {
+                    $Results['servers'][] = array(
+                        'id'             => $Row['public_id'],
+                        'ip_address'     => $Row['ip_address'],
+                        'score'          => (int)$Row['score'],
+                        'ping'           => (int)$Row['ping'],
+                        'country'        => $Row['country'],
+                        'country_short'  => $Row['country_short'],
+                        'sessions'       => (int)$Row['sessions'],
+                        'total_sessions' => (int)$Row['total_sessions'],
+                        'last_updated'   => (int)$Row['last_updated'],
+                        'created'        => (int)$Row['created']
+                    );
+                }
+
+                return $Results;
             }
         }
     }
