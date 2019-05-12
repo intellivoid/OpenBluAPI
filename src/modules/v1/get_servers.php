@@ -4,6 +4,7 @@
 
     use ModularAPI\Abstracts\HTTP\ContentType;
     use ModularAPI\Abstracts\HTTP\FileType;
+    use ModularAPI\Abstracts\HTTP\ResponseCode\ClientError;
     use ModularAPI\Abstracts\HTTP\ResponseCode\Successful;
     use ModularAPI\Objects\AccessKey;
     use ModularAPI\Objects\Response;
@@ -33,13 +34,111 @@
      */
     function Module(?AccessKey $accessKey, array $Parameters): Response
     {
+        $FilterBy = FilterType::None;
+        $FilterValue = 'None';
+        $OrderBy = OrderBy::byTotalSessions;
+        $OrderDirection = OrderDirection::Ascending;
+
+        switch(strtolower($Parameters['filter_by']))
+        {
+            case 'none':
+                $FilterBy = FilterType::None;
+                $FilterValue = 'None';
+                break;
+
+            case 'country':
+                $FilterBy = FilterType::byCountry;
+                if(strlen($Parameters['filter']) !== 2)
+                {
+                    $Response = new Response();
+                    $Response->ResponseCode = ClientError::_400;
+                    $Response->ResponseType = ContentType::application . '/' . FileType::json;
+                    $Response->Content = array(
+                        'status' => false,
+                        'status_code' => ClientError::_400,
+                        'message' =>'The given filter value is invalid'
+                    );
+
+                    return $Response;
+                }
+
+                $FilterValue = strtoupper($Parameters['filter']);
+
+                break;
+
+            default:
+                $Response = new Response();
+                $Response->ResponseCode = ClientError::_400;
+                $Response->ResponseType = ContentType::application . '/' . FileType::json;
+                $Response->Content = array(
+                    'status' => false,
+                    'status_code' => ClientError::_400,
+                    'message' =>'The filter type is invalid'
+                );
+
+                return $Response;
+        }
+
+        switch(strtolower($Parameters['order_by']))
+        {
+            case 'last_updated':
+                $OrderBy = OrderBy::byLastUpdated;
+                break;
+
+            case 'ping':
+                $OrderBy = OrderBy::byPing;
+                break;
+
+            case 'score':
+                $OrderBy = OrderBy::byScore;
+                break;
+
+            case 'sessions':
+                $OrderBy = OrderBy::byCurrentSessions;
+                break;
+
+            case 'total_sessions':
+                $OrderBy = OrderBy::byTotalSessions;
+                break;
+
+            default:
+                $Response = new Response();
+                $Response->ResponseCode = ClientError::_400;
+                $Response->ResponseType = ContentType::application . '/' . FileType::json;
+                $Response->Content = array(
+                    'status' => false,
+                    'status_code' => ClientError::_400,
+                    'message' => 'The order type is invalid'
+                );
+
+                return $Response;
+        }
+
+        switch(strtolower($Parameters['order_direction']))
+        {
+            case 'ascending':
+                $OrderDirection = OrderDirection::Ascending;
+                break;
+
+            case 'descending':
+                $OrderDirection = OrderDirection::Descending;
+                break;
+
+            default:
+                $Response = new Response();
+                $Response->ResponseCode = ClientError::_400;
+                $Response->ResponseType = ContentType::application . '/' . FileType::json;
+                $Response->Content = array(
+                    'status' => false,
+                    'status_code' => ClientError::_400,
+                    'message' => 'The order direction can only be ascending or descending'
+                );
+
+                return $Response;
+        }
+
         $OpenBlu = new OpenBlu();
-        $Results = $OpenBlu->getVPNManager()->filterGetServers(
-            FilterType::None,
-            'None',
-            OrderBy::byCurrentSessions,
-            OrderDirection::Ascending
-        );
+        $Results = $OpenBlu->getVPNManager()->filterGetServers($FilterBy, $FilterValue, $OrderBy, $OrderDirection);
 
         $Response = new Response();
         $Response->ResponseCode = Successful::_200;

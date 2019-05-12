@@ -56,6 +56,7 @@
         invalidModuleError();
     }
 
+
     $Module = $Configuration->getModule($Query->Module);
 
     if($Query->RequestMethod == RequestMethod::GET)

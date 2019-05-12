@@ -20,7 +20,7 @@
           {
             "filter_by": {"REQUIRED": false, "DEFAULT": "none"},
             "filter": {"REQUIRED": false, "DEFAULT":  "none"},
-            "order_by": {"REQUIRED":  false, "DEFAULT":  "current_sessions"},
+            "order_by": {"REQUIRED":  false, "DEFAULT":  "sessions"},
             "order_direction": {"REQUIRED": false, "DEFAULT":  "ascending"}
           }
         },
