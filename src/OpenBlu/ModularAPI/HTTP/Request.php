@@ -214,6 +214,7 @@
                         if(strtoupper($postParameter) == strtoupper($ParameterObject->Name))
                         {
                             $requestParameters[$ParameterObject->Name] = $postValue;
+                            $ParameterFound = true;
                             break;
                         }
                     }
