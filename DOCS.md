@@ -249,3 +249,81 @@ Each server is represented in a ServerListing object, the structure is shown bel
 | total_sessions | `integer` | The total amount of users that has connected to this server (All time)      |
 | last_updated   | `integer` | The Unix Timestamp of when this server was last updated                     |
 | created        | `integer` | The Unix Timestamp of when this server was created                          |
+
+
+### GetServer Module
+
+This module allows you to retrieve all the details about the server, including
+the generated .ovpn file contents, certificates and configuration parameters.
+In order to use this Module, you need the server ID.
+
+| Parameter Name | Default Value | Required | Description                              |
+|----------------|---------------|----------|------------------------------------------|
+| server_id      | None          | Yes      | The ID of the server you want to look up |
+
+##### Example Request
+
+An example request is displayed below using a simple GET request. for demonstration purposes the certificate and configuration data is shortened.
+
+URL: `https://api.intellivoid.info/openblu/v1/getServer?server_id=501ee1fe673f6bc9&api_key=<API KEY>`
+
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "payload": {
+        "id": "501ee1fe673f6bc9",
+        "host_name": "marimo-net",
+        "ip_address": "110.163.143.10",
+        "score": 1243666,
+        "ping": 12,
+        "country": "Japan",
+        "country_short": "JP",
+        "sessions": 277,
+        "total_sessions": 2138574,
+        "openvpn": {
+            "parameters": {
+                "dev": "tun",
+                "proto": "tcp",
+                "remote": "110.163.143.10 992",
+                "cipher": "AES-128-CBC",
+                "auth": "SHA1",
+                "resolv-retry": "infinite",
+                "nobind": null,
+                "persist-key": null,
+                "persist-tun": null,
+                "client": null,
+                "verb": "3"
+            },
+            "certificate_authority": "-----BEGIN CERTIFICATE-----\r\n...\r\n-----END CERTIFICATE-----",
+            "key": "-----BEGIN RSA PRIVATE KEY-----\r\n...\r\n-----END RSA PRIVATE KEY-----",
+            "ovpn_configuration": "<OPEN VPN CONFIGURATION FILE CONTENTS HERE>"
+        },
+        "last_updated": 1554909553,
+        "created": 1554828214
+    },
+    "ref_code": "a00fe7acc6c6d8faf9b67abd3f5cdb5b7f6983dc10c1cd79876cd2d44a2c9889"
+}
+```
+
+
+The details are represented as a `Sever` object, within that object another object
+called `OpenVPN` is represented within the object.
+
+
+#### Server Object
+
+| Variable Name  | Type      | Description                                                                   |
+|----------------|-----------|-------------------------------------------------------------------------------|
+| id             | `string`  | The ID of the server                                                          |
+| host_name      | `string`  | The name of the host                                                          |
+| ip_address     | `string`  | The remote IP Address of the server                                           |
+| score          | `integer` | The score of the server, depending on the amount of sessions it had over time |
+| ping           | `integer` | The ping time (ms) between OpenBlu and the server                             |
+| country        | `string`  | The full name of the country that this VPN is based in                        |
+| country_short  | `string`  | A short representation of the country in two letters (CA, US, KR, etc...)     |
+| sessions       | `integer` | The amount of users that are currently connected to this server               |
+| total_sessions | `integer` | The total amount of users that has connected to this server (All time)        |
+| openvpn        | `openvpn` | Details on how to connect to the server using OpenVPN                         |
+| last_updated   | `integer` | The Unix Timestamp of when this server was last updated                       |
+| created        | `integer` | The Unix Timestamp of when this server was created                            |
