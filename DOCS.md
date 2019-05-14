@@ -155,3 +155,97 @@ This is returned if your Access Key was suspended (Certificate or API Key)
 
 OpenBlu's API Functionality is basic in terms of functionality. At the moment
 you can only retrieve server listings and individual server details.
+
+| Module Name | Access URI                                         | Request Methods | Description                                                                                                                             |
+|-------------|----------------------------------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| GetServers  | https://api.intellivoid.info/openblu/v1/getServers | `GET` `POST`    | Retrieves a list of available servers which are represented in an array as ServerListing Objects that contains limited information      |
+| GetServer  | https://api.intellivoid.info/openblu/v1/getServer  | `GET` `POST`    | Gets the full server information, Host Name IP Address, OpenVPN Configuration Parameters, Certificates and a .ovpn file contents itself |
+
+
+### GetServers Module
+
+This module retrieves a full list of available servers that you can connect to from
+OpenBlu, Each server represented in the array is a ServerListing Object which means
+limited information about each server is displayed until you request for the server
+details with `GetServer` module.
+
+| Parameter Name  | Default Value | Required | Description                                                                                                                                                                                                                                |
+|-----------------|---------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order_by        | sessions      | No       | The value to order the results by, for example if the value is `sessions` the results will be ordered by the amount of sessions depending of the value `order_direction`                                                                   |
+| order_direction | ascending     | No       | The direction of the order results, the two acceptable values are `ascending` or `descending`.  `ascending` will display the servers in an ascending order depending on what `order_by` is  set to, vice versa for the `descending` value. |
+
+
+
+Basic order filters can be applied to alter the output of the listing, either by
+searching for a country, ordered by the amount of sessions to the server, etc. The
+possible values for `order_by` are displayed on the list below
+
+| Possible Value | Description                                                                |
+|----------------|----------------------------------------------------------------------------|
+| last_updated   | The Unix Timestamp of when this server was last updated to OpenBlu         |
+| ping           | The ping time (ms) from OpenBlu to this server                             |
+| score          | The score of the server depending on the sessions over time                |
+| sessions       | The current amount of users connected to this server right now             |
+| total_sessions | The total amount of servers that has been connected to the server all time |
+
+
+##### Example Request
+
+An example request is displayed below using a simple GET request. The response is
+larger, but for demonstration purposes the results are cut
+
+URL: `https://api.intellivoid.info/openblu/v1/getServers?api_key=<API KEY>`
+
+```json
+{
+    "status": true,
+    "status_code": 200,
+    "payload": {
+        "total_results": 247,
+        "servers": [
+            {
+                "id": "501ee1fe673f6bc9",
+                "score": 1243666,
+                "ping": 12,
+                "country": "Japan",
+                "country_short": "JP",
+                "sessions": 277,
+                "total_sessions": 2138574,
+                "last_updated": 1554909553,
+                "created": 1554828214
+            },
+			...
+            {
+                "id": "17442bb5ef39b811",
+                "score": 6900,
+                "ping": 0,
+                "country": "France",
+                "country_short": "FR",
+                "sessions": 0,
+                "total_sessions": 0,
+                "last_updated": 1554909562,
+                "created": 1554909562
+            }
+        ]
+    },
+    "ref_code": "fdd5a0bce8986718118780365eb25690ae0ca1919bbd3146c04f14f09a6d2b0d"
+}
+
+```
+
+Each server is represented in a ServerListing object, the structure is shown below
+
+#### ServerListing Object
+
+
+| Variable Name  | Type      | Description                                                                 |
+|----------------|-----------|-----------------------------------------------------------------------------|
+| id             | `string`  | The ID of the server, using this you can retrieve the server details        |
+| score          | `integer` | The score of the server depending on the amount of sessions over time       |
+| ping           | `integer` | The ping (ms) between OpenBlu and the server                                |
+| country        | `string`  | The name of the country that this server is located at                      |
+| country_short  | `string`  | A shorter representation of the country in two letters (CA, US, KR, etc...) |
+| sessions       | `integer` | The amount of users currently connected to this server                      |
+| total_sessions | `integer` | The total amount of users that has connected to this server (All time)      |
+| last_updated   | `integer` | The Unix Timestamp of when this server was last updated                     |
+| created        | `integer` | The Unix Timestamp of when this server was created                          |
