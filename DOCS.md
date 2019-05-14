@@ -1,5 +1,12 @@
 # OpenBlu API Documentation
 
+This document contains information on how to authenticate and use modules,
+everything from example request, object structures are displayed in this document.
+
+As OpenBlu updates over time, small changes may be applied. This document
+will be updated if any changes were made to the OpenBlu API
+
+
 ## Authentication Methods :lock:
 There are two types of methods for authentication, the first method is the
 most common form of authentication which is the use of a API Key, the second
@@ -296,6 +303,7 @@ URL: `https://api.intellivoid.info/openblu/v1/getServer?server_id=501ee1fe673f6b
                 "verb": "3"
             },
             "certificate_authority": "-----BEGIN CERTIFICATE-----\r\n...\r\n-----END CERTIFICATE-----",
+            "certificate": "-----BEGIN CERTIFICATE-----\r\n...\r\n-----END CERTIFICATE-----",
             "key": "-----BEGIN RSA PRIVATE KEY-----\r\n...\r\n-----END RSA PRIVATE KEY-----",
             "ovpn_configuration": "<OPEN VPN CONFIGURATION FILE CONTENTS HERE>"
         },
@@ -327,3 +335,31 @@ called `OpenVPN` is represented within the object.
 | openvpn        | `openvpn` | Details on how to connect to the server using OpenVPN                         |
 | last_updated   | `integer` | The Unix Timestamp of when this server was last updated                       |
 | created        | `integer` | The Unix Timestamp of when this server was created                            |
+
+### OpenVPN Object
+
+| Variable Name         | Type                          | Description                                                                                        |
+|-----------------------|-------------------------------|----------------------------------------------------------------------------------------------------|
+| paramerters           | `array` (string: string/null) | An array of OpenVPN parameters, if the value is null then the option does not need to have a value |
+| certificate_authority | `string`                      | The contents of the certificate authority                                                          |
+| certificate           | `string`                      | The contents of the main certificate                                                               |
+| key                   | `string`                      | The contents of a private RSA Key                                                                  |
+| ovpn_configuration    | `string`                      | The full generated .ovpn file contents                                                             |
+
+#### Not Found Error
+
+If you request for a server that does not exist, none of the requested information
+will be shown but rather a simple message will be returned indicating that
+the server was not found
+
+```json
+{
+    "status": false,
+    "status_code": 404,
+    "message": "The requested VPN server was not found",
+    "ref_code": "2f72b737603bcaaffd16cdf9be7263236bf86ebee3ecb56438cf04ead8dd4983"
+}
+```
+
+----------------------------------------------------------------------------
+This documentation was written with :heart: by [netkas](https://github.com/netkas)
