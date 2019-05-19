@@ -139,7 +139,7 @@
         }
 
         /**
-         * Calculates the refrence ID
+         * Calculates the reference ID
          *
          * @param int $timestamp
          * @param string $version
@@ -147,7 +147,7 @@
          * @param string $ip
          * @return string
          */
-        public static function calculateRefrenceID(int $timestamp, string $version, string $module, string $ip)
+        public static function calculateReferenceID(int $timestamp, string $version, string $module, string $ip)
         {
             return hash('sha256',  self::pepper($timestamp) . self::pepper($version) . self::pepper($module) . $ip);
         }

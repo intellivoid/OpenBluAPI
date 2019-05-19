@@ -34,15 +34,15 @@
 
         /**
          * Executes the response to the HTTP Client
-         * @param string $refrenceCode
+         * @param string $referenceCode
          * @throws UnsupportedClientException
          */
-        public function executeResponse(string $refrenceCode = 'NONE')
+        public function executeResponse(string $referenceCode = 'NONE')
         {
             switch($this->ResponseType)
             {
                 case ContentType::application . '/' . FileType::json:
-                    \ModularAPI\HTTP\Response::json($this->Content, $this->ResponseCode, $refrenceCode);
+                    \ModularAPI\HTTP\Response::json($this->Content, $this->ResponseCode, $referenceCode);
                     break;
 
                 default:
