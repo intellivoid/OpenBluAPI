@@ -30,11 +30,11 @@
         public $ExecutionTime;
 
         /**
-         * The refrence ID of the request
+         * The reference ID of the request
          *
          * @var int
          */
-        public $RefrenceID;
+        public $ReferenceID;
 
         /**
          * The version of the API
@@ -124,7 +124,7 @@
                 'id' => $this->ID,
                 'timestamp' => $this->Timestamp,
                 'execution_time' => $this->ExecutionTime,
-                'refrence_id' => $this->RefrenceID,
+                'reference_id' => $this->ReferenceID,
                 'version' => $this->Version,
                 'module' => $this->Module,
                 'request_method' => $this->RequestMethod,
@@ -172,7 +172,7 @@
 
             if(isset($data['reference_id']))
             {
-                $RequestRecordObject->RefrenceID = (string)$data['reference_id'];
+                $RequestRecordObject->ReferenceID = (string)$data['reference_id'];
             }
 
             if(isset($data['version']))

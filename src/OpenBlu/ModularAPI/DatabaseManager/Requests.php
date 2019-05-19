@@ -32,7 +32,7 @@
         }
 
         /**
-         * Records the request to the database, returns refrence ID
+         * Records the request to the database, returns reference ID
          *
          * @param string $client_ip
          * @param float $executionTime
@@ -55,8 +55,8 @@
 
             $Timestamp = (int)time();
             $ExecutionTime = (float)$executionTime;
-            $RefrenceID = Hashing::calculateRefrenceID($Timestamp, $requestQuery->Version, $requestQuery->Module, $client_ip);
-            $RefrenceID = $this->modularAPI->Database->real_escape_string($RefrenceID);
+            $ReferenceID = Hashing::calculateReferenceID($Timestamp, $requestQuery->Version, $requestQuery->Module, $client_ip);
+            $ReferenceID = $this->modularAPI->Database->real_escape_string($ReferenceID);
             $ClientIP = $this->modularAPI->Database->real_escape_string($client_ip);
             $Version = $this->modularAPI->Database->real_escape_string($requestQuery->Version);
             $Module = $this->modularAPI->Database->real_escape_string($requestQuery->Module);
@@ -77,12 +77,12 @@
                 $ExceptionDetails = $this->modularAPI->Database->real_escape_string(json_encode($exceptionDetails->toArray()));
             }
 
-            $Query = "INSERT INTO `requests` (refrence_id, execution_time, timestamp, client_ip, version, module, request_method, request_parameters, response_type, response_code, authentication_method, access_key_public_id, fatal_error, exception_details) VALUES ('$RefrenceID', $ExecutionTime, $Timestamp, '$ClientIP', '$Version', '$Module', '$RequestMethod', '$RequestParameters', '$ResponseType', $ResponseCode, '$AuthenticationMethod', '$AccessKeyPublicID', $FatalError, '$ExceptionDetails')";
+            $Query = "INSERT INTO `requests` (reference_id, execution_time, timestamp, client_ip, version, module, request_method, request_parameters, response_type, response_code, authentication_method, access_key_public_id, fatal_error, exception_details) VALUES ('$ReferenceID', $ExecutionTime, $Timestamp, '$ClientIP', '$Version', '$Module', '$RequestMethod', '$RequestParameters', '$ResponseType', $ResponseCode, '$AuthenticationMethod', '$AccessKeyPublicID', $FatalError, '$ExceptionDetails')";
             $QueryResults = $this->modularAPI->Database->query($Query);
 
             if($QueryResults == true)
             {
-                return $RefrenceID;
+                return $ReferenceID;
             }
             else
             {

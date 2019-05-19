@@ -96,9 +96,9 @@
         public $PlanCreated;
 
         /**
-         * The Unix Timestamp of when this plan started
+         * Indicates if this plan has started or not
          *
-         * @var int
+         * @var bool
          */
         public $PlanStarted;
 
@@ -118,7 +118,7 @@
             $this->BillingCycle = 0;
             $this->NextBillingCycle = 0;
             $this->PaymentRequired = false;
-            $this->PlanCreated = 0;
+            $this->PlanCreated = false;
             $this->PlanStarted = 0;
         }
 
@@ -141,7 +141,7 @@
                 'billing_cycle' => (int)$this->BillingCycle,
                 'payment_required' => (bool)$this->PaymentRequired,
                 'plan_created' => (int)$this->PlanCreated,
-                'plan_started' => $this->PlanStarted
+                'plan_started' => (bool)$this->PlanStarted
             );
         }
 
@@ -215,7 +215,7 @@
 
             if(isset($data['plan_started']))
             {
-                $PlanObject->PlanStarted = (int)$data['plan_started'];
+                $PlanObject->PlanStarted = (bool)$data['plan_started'];
             }
 
             return $PlanObject;

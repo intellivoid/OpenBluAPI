@@ -88,7 +88,7 @@
             $plan->Active = true;
             $plan->PaymentRequired = false;
             $plan->NextBillingCycle = $current_time + $plan->BillingCycle;
-            $plan->PlanStarted = $current_time;
+            $plan->PlanStarted = false;
             $plan->PlanCreated = $current_time;
 
             // Register the plan into the database

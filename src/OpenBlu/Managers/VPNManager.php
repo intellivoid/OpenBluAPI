@@ -446,7 +446,7 @@
          */
         public function filterGetServers(string $filter_type = FilterType::None, string $filter_value = 'OPTIONAL', string $order_by = OrderBy::byLastUpdated, string $order_direction = OrderDirection::Ascending): array
         {
-            $Query = "SELECT public_id, ip_address, score, ping, country, country_short, sessions, total_sessions, last_updated, created FROM `vpns`";
+            $Query = "SELECT id, public_id, ip_address, score, ping, country, country_short, sessions, total_sessions, last_updated, created FROM `vpns`";
 
             switch($filter_type)
             {
@@ -489,7 +489,7 @@
                     break;
 
                 case OrderBy::byLastUpdated:
-                    $Query = " ORDER BY last_updated";
+                    $Query .= " ORDER BY last_updated";
                     break;
 
                 default:
@@ -530,7 +530,8 @@
                 while ($Row = $QueryResults->fetch_assoc())
                 {
                     $Results['servers'][] = array(
-                        'id'             => $Row['public_id'],
+                        'id'             => $Row['id'],
+                        'public_id'      => $Row['public_id'],
                         'ip_address'     => $Row['ip_address'],
                         'score'          => (int)$Row['score'],
                         'ping'           => (int)$Row['ping'],
