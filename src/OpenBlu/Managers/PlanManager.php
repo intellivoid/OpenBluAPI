@@ -62,35 +62,6 @@
          */
         public function createPlan(Plan $plan): Plan
         {
-            if($plan->MonthlyCalls == 0)
-            {
-                $AccessKey = $this->modularApi->AccessKeys()->createKey(
-                    UsageConfiguration::unlimited(),
-                    array(
-                        'test'
-                    )
-                );
-            }
-            else
-            {
-                $AccessKey = $this->modularApi->AccessKeys()->createKey(
-                    UsageConfiguration::dateIntervalLimit($plan->MonthlyCalls, 2628002),
-                    array(
-                        'test'
-                    )
-                );
-            }
-
-
-            $current_time = time();
-
-            $plan->AccessKeyId = $AccessKey->ID;
-            $plan->Active = true;
-            $plan->PaymentRequired = false;
-            $plan->NextBillingCycle = $current_time + $plan->BillingCycle;
-            $plan->PlanStarted = false;
-            $plan->PlanCreated = $current_time;
-
             // Register the plan into the database
             $accessKeyId = (int)$plan->AccessKeyId;
             $accountId = (int)$plan->AccountId;
@@ -351,6 +322,8 @@
                 $PlanExists = true;
             }
 
+            $current_time = time();
+
             // Set the properties
             $Plan->BillingCycle = $billingCycle;
             $Plan->PricePerCycle = $price;
@@ -358,6 +331,10 @@
             $Plan->PromotionCode = $promotion_code;
             $Plan->Active = true;
             $Plan->PlanStarted = true;
+            $Plan->PaymentRequired = false;
+            $Plan->NextBillingCycle = $current_time + $Plan->BillingCycle;
+            $Plan->PlanCreated = $current_time;
+            $Plan->AccountId = $accountId;
 
             // Set the plan type
             switch($planType)
