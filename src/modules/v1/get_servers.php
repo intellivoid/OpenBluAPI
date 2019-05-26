@@ -139,6 +139,22 @@
 
         $OpenBlu = new OpenBlu();
         $Results = $OpenBlu->getVPNManager()->filterGetServers($FilterBy, $FilterValue, $OrderBy, $OrderDirection);
+        $PayloadResults = array();
+
+        foreach($Results as $Server)
+        {
+            $PayloadResults[] = array(
+                'public_id' => $Server['public_id'],
+                'score' => (int)$Server['score'],
+                'ping' => (int)$Server['ping'],
+                'country' => $Server['country'],
+                'country_short' => $Server['country_short'],
+                'sessions' => (int)$Server['sessions'],
+                'total_sessions' => (int)$Server['total_sessions'],
+                'last_updated' => (int)$Server['last_updated'],
+                'created' => (int)$Server['created']
+            );
+        }
 
         $Response = new Response();
         $Response->ResponseCode = Successful::_200;
@@ -146,7 +162,7 @@
         $Response->Content = array(
             'status' => true,
             'status_code' => Successful::_200,
-            'payload' => $Results
+            'payload' => $PayloadResults
         );
 
         return $Response;
