@@ -104,4 +104,16 @@
 
             return $builder;
         }
+
+        public static function transactionRecordPublicID(int $account_id, int $unix_timestamp, float $amount, string $vendor, int $operator_type): string
+        {
+            $builder = self::pepper($vendor);
+
+            $builder .= hash('crc32', $account_id);
+            $builder .= hash('crc32', $unix_timestamp - 100);
+            $builder .= hash('crc32', $amount + 200);
+            $builder .= hash('crc32', $operator_type + 5);
+
+            return $builder;
+        }
     }

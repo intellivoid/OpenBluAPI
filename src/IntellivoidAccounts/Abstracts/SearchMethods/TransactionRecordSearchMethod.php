@@ -4,10 +4,10 @@
     namespace IntellivoidAccounts\Abstracts\SearchMethods;
 
     /**
-     * Class BalanceTransactionSearchMethod
-     * @package IntellivoidAccounts\Abstracts\SearchMethods
+     * Class TransactionRecordSearchMethod
+     * @package IntellivoidAccounts\Abstracts
      */
-    abstract class BalanceTransactionSearchMethod
+    abstract class TransactionRecordSearchMethod
     {
         const byId = 'id';
 

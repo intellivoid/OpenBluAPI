@@ -95,4 +95,25 @@
 
             return false;
         }
+
+        /**
+         * Validates if a vendor's name is valid or not
+         *
+         * @param string $input
+         * @return bool
+         */
+        public static function vendor(string $input): bool
+        {
+            if(strlen($input) == 0)
+            {
+                return false;
+            }
+
+            if(strlen($input) > 200)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
