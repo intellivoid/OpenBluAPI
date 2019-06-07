@@ -1,15 +1,12 @@
 <?php
 
-    use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
-    use IntellivoidAccounts\Exceptions\AccountNotFoundException;
-    use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
-    use IntellivoidAccounts\Exceptions\InvalidEmailException;
-    use IntellivoidAccounts\Exceptions\InvalidPasswordException;
-    use IntellivoidAccounts\Exceptions\InvalidUsernameException;
+    use IntellivoidAccounts\Abstracts\TransactionType;
+    use IntellivoidAccounts\Exceptions\InsufficientFundsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use ModularAPI\Abstracts\HTTP\ContentType;
     use ModularAPI\Abstracts\HTTP\FileType;
     use ModularAPI\Abstracts\HTTP\ResponseCode\ClientError;
+    use ModularAPI\Abstracts\HTTP\ResponseCode\ServerError;
     use ModularAPI\Exceptions\AccessKeyNotFoundException;
     use ModularAPI\Exceptions\NoResultsFoundException;
     use ModularAPI\Exceptions\UnsupportedSearchMethodException;
@@ -35,22 +32,15 @@
      *
      * @param AccessKey $accessKey
      * @return Response|null
-     * @throws AccountNotFoundException
-     * @throws \IntellivoidAccounts\Exceptions\ConfigurationNotFoundException
-     * @throws \IntellivoidAccounts\Exceptions\DatabaseException
-     * @throws InvalidAccountStatusException
-     * @throws InvalidEmailException
-     * @throws InvalidPasswordException
-     * @throws \IntellivoidAccounts\Exceptions\InvalidSearchMethodException
-     * @throws InvalidUsernameException
      * @throws AccessKeyNotFoundException
-     * @throws NoResultsFoundException
-     * @throws UnsupportedSearchMethodException
      * @throws ConfigurationNotFoundException
      * @throws DatabaseException
      * @throws InvalidSearchMethodException
+     * @throws NoResultsFoundException
      * @throws PlanNotFoundException
+     * @throws UnsupportedSearchMethodException
      * @throws UpdateRecordNotFoundException
+     * @throws \IntellivoidAccounts\Exceptions\ConfigurationNotFoundException
      */
     function checkPlan(AccessKey $accessKey)
     {
@@ -78,16 +68,20 @@
         if(time() > $Plan->NextBillingCycle)
         {
             $IntellivoidAccounts = new IntellivoidAccounts();
-            $Account = $IntellivoidAccounts->getAccountManager()->getAccount(AccountSearchMethod::byId, $Plan->AccountId);
+            $Response = new Response();
 
-            if($Plan->PricePerCycle > $Account->Configuration->Balance)
+            try
+            {
+                $IntellivoidAccounts->getTransactionRecordManager()->createTransaction(
+                    $Plan->AccountId, $Plan->PricePerCycle, 'Intellivoid', TransactionType::SubscriptionPayment
+                );
+            }
+            catch(InsufficientFundsException $insufficientFundsException)
             {
                 $Plan->Active = false;
                 $Plan->PaymentRequired = true;
-
                 $OpenBlu->getPlanManager()->updatePlan($Plan);
 
-                $Response = new Response();
                 $Response->ResponseCode = ClientError::_400;
                 $Response->ResponseType = ContentType::application . '/' . FileType::json;
                 $Response->Content = array(
@@ -98,14 +92,23 @@
 
                 return $Response;
             }
+            catch(Exception $exception)
+            {
+                $Response->ResponseCode = ServerError::_500;
+                $Response->ResponseType = ContentType::application . '/' . FileType::json;
+                $Response->Content = array(
+                    'status' => false,
+                    'code' => ServerError::_500,
+                    'message' => 'There was an unknown issue while trying to process your API Subscription'
+                );
 
-            $Account->Configuration->Balance = $Account->Configuration->Balance - $Plan->PricePerCycle;
+                return $Response;
+            }
+
             $Plan->NextBillingCycle = time() + $Plan->BillingCycle;
             $Plan->Active = true;
             $Plan->PaymentRequired = false;
 
-
-            $IntellivoidAccounts->getAccountManager()->updateAccount($Account);
             $OpenBlu->getPlanManager()->updatePlan($Plan);
         }
 
