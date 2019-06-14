@@ -3,6 +3,7 @@
 
     namespace IntellivoidAccounts\Managers;
 
+    use BasicCalculator\BC;
     use IntellivoidAccounts\Abstracts\OperatorType;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\TransactionRecordSearchMethod;
@@ -101,19 +102,19 @@
             if($amount > 0)
             {
                 $OperatorType = OperatorType::Deposit;
-                $Account->Configuration->Balance += abs($amount);
+                $Account->Configuration->Balance = (float)BC::add($Account->Configuration->Balance, abs($amount), 2);
             }
             elseif($amount < 0)
             {
                 $OperatorType = OperatorType::Withdraw;
-                $Calculation = $Account->Configuration->Balance - abs($amount);
+                $Calculation = (float)BC::sub($Account->Configuration->Balance, abs($amount), 2);
 
                 if($Calculation < 0)
                 {
                     throw new InsufficientFundsException();
                 }
 
-                $Account->Configuration->Balance -= abs($amount);
+                $Account->Configuration->Balance = (float)BC::sub($Account->Configuration->Balance, abs($amount), 2);
             }
 
             $Timestamp = (int)time();
