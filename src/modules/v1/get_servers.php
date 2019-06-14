@@ -141,7 +141,7 @@
         $Results = $OpenBlu->getVPNManager()->filterGetServers($FilterBy, $FilterValue, $OrderBy, $OrderDirection);
         $PayloadResults = array();
 
-        foreach($Results as $Server)
+        foreach($Results['servers'] as $Server)
         {
             $PayloadResults[] = array(
                 'public_id' => $Server['public_id'],
