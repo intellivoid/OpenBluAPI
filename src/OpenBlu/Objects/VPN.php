@@ -427,6 +427,6 @@
             $configuration_data .= "<cert>\n" . $this->Certificate . "\n</cert>\n\n";
             $configuration_data .= "<key>\n" . $this->Key . "\n</key>\n\n";
 
-            return $configuration_data;
+            return preg_replace('~\R~u', "\r\n", $configuration_data);
         }
     }
