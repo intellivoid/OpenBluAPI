@@ -180,11 +180,11 @@
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
-                $RecordFile = $this->openBlu->configuration['WIN_RecordDirectory'] . DIRECTORY_SEPARATOR . $publicID . '.csv';
+                $RecordFile = $this->openBlu->getRecordDirectoryConfiguration()['WIN_RecordDirectory'] . DIRECTORY_SEPARATOR . $publicID . '.csv';
             }
             else
             {
-                $RecordFile = $this->openBlu->configuration['UNIX_RecordDirectory'] . DIRECTORY_SEPARATOR . $publicID . '.csv';
+                $RecordFile = $this->openBlu->getRecordDirectoryConfiguration()['UNIX_RecordDirectory'] . DIRECTORY_SEPARATOR . $publicID . '.csv';
             }
 
             if(file_exists($RecordFile) == false)

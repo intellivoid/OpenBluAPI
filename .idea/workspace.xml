@@ -2,7 +2,45 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cda7678f-7133-4d71-b2fe-de9c53287834" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/modules/v1/get_servers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/v1/get_servers.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ModularAPI/AutoConfig.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModularAPI/Managers/AccessKeyManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/Managers/AccessKeyManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModularAPI/ModularAPI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/ModularAPI.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModularAPI/configuration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/configuration.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModularAPI/modular-api.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/modular-api.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/AnalyticsManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/AnalyticsManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/Managers/Manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/Managers/Manager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Options.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Options.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Regex.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Regex.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/BufferStream.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/BufferStream.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/DecodingOptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/DecodingOptions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/EncodingOptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/EncodingOptions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/DecodingFailedException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/DecodingFailedException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/EncodingFailedException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/EncodingFailedException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InsufficientDataException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InsufficientDataException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/IntegerOverflowException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/IntegerOverflowException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InvalidOptionException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InvalidOptionException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Ext.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Ext.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Packet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Packet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Binary.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Binary.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Map.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/BinaryTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/BinaryTransformer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Extension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Extension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/MapTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/MapTransformer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Validator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/ZiProto.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/ZiProto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/analytics_manager.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/analytics_manager.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/Managers/RecordManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/Managers/RecordManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/Managers/AccessKeyManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/Managers/AccessKeyManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/ModularAPI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/ModularAPI.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/configuration.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/modular-api.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/modular-api.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/OpenBlu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/OpenBlu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/configuration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/configuration.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenBlu/openblu.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/openblu.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +50,84 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/modules/v1/get_servers.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ModularAPI/ModularAPI.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="144" column="9" selection-start-line="144" selection-start-column="9" selection-end-line="144" selection-end-column="9" />
+            <state relative-caret-position="487">
+              <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ModularAPI/modular-api.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ModularAPI/AutoConfig.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/AutoConfig.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/acm/acm.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7392">
+              <caret line="311" column="36" selection-start-line="311" selection-start-column="36" selection-end-line="311" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/acm/CommandLine.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="148" column="95" selection-start-line="148" selection-start-column="95" selection-end-line="148" selection-end-column="95" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/OpenBlu/ModularAPI/acm/acm.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8064">
+              <caret line="339" column="5" selection-start-line="339" selection-start-column="5" selection-end-line="339" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1704">
+              <caret line="77" column="10" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ModularAPI/configuration.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -31,6 +142,13 @@
       <list>
         <option value="$PROJECT_DIR$/src/api/check_plan.php" />
         <option value="$PROJECT_DIR$/src/modules/v1/get_servers.php" />
+        <option value="$PROJECT_DIR$/src/OpenBlu/OpenBlu.php" />
+        <option value="$PROJECT_DIR$/src/OpenBlu/setup.php" />
+        <option value="$PROJECT_DIR$/src/ModularAPI/AutoConfig.php" />
+        <option value="$PROJECT_DIR$/src/ModularAPI/ModularAPI.php" />
+        <option value="$PROJECT_DIR$/src/AutoConfig.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/acm/CommandLine.php" />
+        <option value="$PROJECT_DIR$/src/ModularAPI/configuration.ini" />
       </list>
     </option>
   </component>
@@ -62,33 +180,13 @@
               <item name="OpenBluAPI" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenBluAPI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OpenBluAPI" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenBluAPI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenBluAPI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenBluAPI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="v1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenBluAPI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenBluAPI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="OpenBlu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenBluAPI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenBluAPI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="OpenBlu" type="462c0819:PsiDirectoryNode" />
-              <item name="Managers" type="462c0819:PsiDirectoryNode" />
+              <item name="ModularAPI" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -127,12 +225,16 @@
       <updated>1558838623774</updated>
       <workItem from="1558838625360" duration="1913000" />
       <workItem from="1559941382119" duration="592000" />
-      <workItem from="1560499052250" duration="600000" />
+      <workItem from="1560499052250" duration="903000" />
+      <workItem from="1561064532717" duration="286000" />
+      <workItem from="1561066814684" duration="771000" />
+      <workItem from="1561076467125" duration="819000" />
+      <workItem from="1561086036271" duration="30000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3105000" />
+    <option name="totallyTimeSpent" value="5314000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -148,7 +250,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2624811" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.27836612" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32943144" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -191,8 +293,89 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/modules/v1/get_servers.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
+        <state relative-caret-position="3072">
           <caret line="144" column="9" selection-start-line="144" selection-start-column="9" selection-end-line="144" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OpenBlu/ModularAPI/ModularAPI.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1752">
+          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OpenBlu/setup.php" />
+    <entry file="file://$PROJECT_DIR$/src/AutoConfig.php" />
+    <entry file="file://$PROJECT_DIR$/src/OpenBlu/OpenBlu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3768">
+          <caret line="166" selection-start-line="166" selection-end-line="166" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/AutoConfig.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/acm/acm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7392">
+          <caret line="311" column="36" selection-start-line="311" selection-start-column="36" selection-end-line="311" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OpenBlu/ModularAPI/acm/acm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8064">
+          <caret line="339" column="5" selection-start-line="339" selection-start-column="5" selection-end-line="339" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1704">
+          <caret line="77" column="10" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/acm/CommandLine.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="148" column="95" selection-start-line="148" selection-start-column="95" selection-end-line="148" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModularAPI/AutoConfig.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModularAPI/ModularAPI.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="76" column="10" selection-start-line="76" selection-start-column="10" selection-end-line="76" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModularAPI/modular-api.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModularAPI/configuration.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
         </state>
       </provider>
     </entry>

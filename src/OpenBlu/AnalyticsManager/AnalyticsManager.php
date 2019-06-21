@@ -2,8 +2,9 @@
 
     namespace AnalyticsManager;
 
-
+    use acm\acm;
     use AnalyticsManager\Managers\Manager;
+    use Exception;
     use mysqli;
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'ExceptionCodes.php');
@@ -31,17 +32,17 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'ZiProto' . DIRECTORY_SEPARATOR . 'ZiProto.php');
     }
 
+    if(class_exists('acm\acm') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'acm' . DIRECTORY_SEPARATOR . 'acm.php');
+    }
+
     /**
      * Class AnalyticsManager
      * @package AnalyticsManager
      */
     class AnalyticsManager
     {
-        /**
-         * @var array|bool
-         */
-        private $configuration;
-
         /**
          * @var mysqli
          */
@@ -53,30 +54,34 @@
         private $Manager;
 
         /**
+         * @var acm
+         */
+        private $acm;
+
+        /**
+         * @var mixed
+         */
+        private $DatabaseConfiguration;
+
+        /**
          * AnalyticsManager constructor.
          * @param string $database_name
+         * @throws Exception
          */
         public function __construct(string $database_name)
         {
-            $this->configuration = parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'configuration.ini');
+            $this->acm = new acm(__DIR__, 'OpenBlu');
+            $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
 
             $this->database = new mysqli(
-                $this->configuration['DatabaseHost'],
-                $this->configuration['DatabaseUsername'],
-                $this->configuration['DatabasePassword'],
+                $this->DatabaseConfiguration['Host'],
+                $this->DatabaseConfiguration['Username'],
+                $this->DatabaseConfiguration['Password'],
                 $database_name,
-                $this->configuration['DatabasePort']
+                $this->DatabaseConfiguration['Port']
             );
 
             $this->Manager = new Manager($this);
-        }
-
-        /**
-         * @return array|bool
-         */
-        public function getConfiguration()
-        {
-            return $this->configuration;
         }
 
         /**
@@ -93,6 +98,14 @@
         public function getManager(): Manager
         {
             return $this->Manager;
+        }
+
+        /**
+         * @return acm
+         */
+        public function getAcm(): acm
+        {
+            return $this->acm;
         }
 
     }

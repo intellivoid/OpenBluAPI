@@ -46,6 +46,7 @@
         {
             return (new Packet($options))->encode($value);
         }
+
         /**
          * @param string $data
          * @param DecodingOptions|int|null $options

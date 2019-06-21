@@ -2,6 +2,8 @@
 
     namespace ModularAPI;
 
+    use acm\acm;
+    use Exception;
     use ModularAPI\DatabaseManager\Requests;
     use ModularAPI\Managers\AccessKeyManager;
     use mysqli;
@@ -59,6 +61,11 @@
     include_once(MODULAR_API . 'Utilities' . DIRECTORY_SEPARATOR . 'Checker.php');
     include_once(MODULAR_API . 'Utilities' . DIRECTORY_SEPARATOR . 'Hashing.php');
 
+    if(class_exists('acm\acm') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'acm' . DIRECTORY_SEPARATOR . 'acm.php');
+    }
+
     /**
      * Main AutoLoader for ModularAPI
      *
@@ -85,23 +92,42 @@
         private $RequestsLog;
 
         /**
+         * @var acm
+         */
+        private $acm;
+
+        /**
+         * @var mixed
+         */
+        private $DatabaseConfiguration;
+
+        /**
+         * @var mixed
+         */
+        private $ModularApiConfiguration;
+
+        /**
          * Constructs ModularAPI Library
          *
          * ModularAPI constructor.
          * @param bool $EstablishDatabaseConnection
+         * @throws Exception
          */
         public function __construct(bool $EstablishDatabaseConnection = true)
         {
-            $Configuration = self::getConfiguration();
+            $this->acm = new acm(__DIR__, 'OpenBlu');
+
+            $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
+            $this->ModularApiConfiguration = $this->acm->getConfiguration('ModularAPI');
 
             if($EstablishDatabaseConnection == true)
             {
                 $this->Database = new mysqli(
-                    $Configuration['ModularAPI_DatabaseHost'],
-                    $Configuration['ModularAPI_DatabaseUsername'],
-                    $Configuration['ModularAPI_DatabasePassword'],
-                    $Configuration['ModularAPI_DatabaseName'],
-                    $Configuration['ModularAPI_DatabasePort']
+                    $this->DatabaseConfiguration['Host'],
+                    $this->DatabaseConfiguration['Username'],
+                    $this->DatabaseConfiguration['Password'],
+                    $this->DatabaseConfiguration['Name'],
+                    $this->DatabaseConfiguration['Port']
                 );
             }
             else
@@ -134,12 +160,27 @@
         }
 
         /**
-         * Get configuration
-         *
-         * @return array
+         * @return mixed
          */
-        public static function getConfiguration(): array
+        public function getDatabaseConfiguration()
         {
-            return parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . 'configuration.ini', false);
+            return $this->DatabaseConfiguration;
         }
+
+        /**
+         * @return mixed
+         */
+        public function getModularApiConfiguration()
+        {
+            return $this->ModularApiConfiguration;
+        }
+
+        /**
+         * @return acm
+         */
+        public function getAcm(): acm
+        {
+            return $this->acm;
+        }
+
     }

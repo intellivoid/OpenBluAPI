@@ -2,6 +2,8 @@
 
     namespace IntellivoidAccounts;
 
+    use acm\acm;
+    use Exception;
     use IntellivoidAccounts\Exceptions\ConfigurationNotFoundException;
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
@@ -62,6 +64,12 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'BasicCalculator' . DIRECTORY_SEPARATOR . 'BC.php');
     }
 
+    if(class_exists('acm\acm') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'acm' . DIRECTORY_SEPARATOR . 'acm.php');
+    }
+
+    include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
 
     /**
      * Class IntellivoidAccounts
@@ -69,10 +77,6 @@
      */
     class IntellivoidAccounts
     {
-        /**
-         * @var array|bool
-         */
-        public $configuration;
 
         /**
          * @var mysqli
@@ -95,24 +99,37 @@
         private $TransactionRecordManager;
 
         /**
+         * @var acm
+         */
+        private $acm;
+
+        /**
+         * @var mixed
+         */
+        private $DatabaseConfiguration;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
+         * @throws Exception
          */
         public function __construct()
         {
+            $this->acm = new acm(__DIR__, 'Intellivoid Accounts');
+
             if(file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'configuration.ini') == false)
             {
                 throw new ConfigurationNotFoundException();
             }
 
-            $this->configuration = parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . 'configuration.ini');
+            $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
 
             $this->database = new mysqli(
-                $this->configuration['DatabaseHost'],
-                $this->configuration['DatabaseUsername'],
-                $this->configuration['DatabasePassword'],
-                $this->configuration['DatabaseName'],
-                $this->configuration['DatabasePort']
+                $this->DatabaseConfiguration['Host'],
+                $this->DatabaseConfiguration['Username'],
+                $this->DatabaseConfiguration['Password'],
+                $this->DatabaseConfiguration['Name'],
+                $this->DatabaseConfiguration['Port']
             );
 
             $this->AccountManager = new AccountManager($this);

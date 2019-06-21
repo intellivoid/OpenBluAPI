@@ -4,15 +4,26 @@
     use ZiProto\Exception\InvalidOptionException;
     use ZiProto\Abstracts\Options;
 
+    /**
+     * Class DecodingOptions
+     * @package ZiProto
+     */
     final class DecodingOptions
     {
 
+        /**
+         * @var
+         */
         private $bigIntMode;
 
-        private function __construct()
-        {
-        }
+        /**
+         * DecodingOptions constructor.
+         */
+        private function __construct() {}
 
+        /**
+         * @return DecodingOptions
+         */
         public static function fromDefaults() : self
         {
             $self = new self();
@@ -21,6 +32,10 @@
             return $self;
         }
 
+        /**
+         * @param int $bitmask
+         * @return DecodingOptions
+         */
         public static function fromBitmask(int $bitmask) : self
         {
             $self = new self();
@@ -34,20 +49,33 @@
             return $self;
         }
 
+        /**
+         * @return bool
+         */
         public function isBigIntAsStrMode() : bool
         {
             return Options::BIGINT_AS_STR === $this->bigIntMode;
         }
 
+        /**
+         * @return bool
+         */
         public function isBigIntAsGmpMode() : bool
         {
             return Options::BIGINT_AS_GMP === $this->bigIntMode;
         }
 
+        /**
+         * @param string $name
+         * @param int $bitmask
+         * @param int $validBitmask
+         * @return int
+         */
         private static function getSingleOption(string $name, int $bitmask, int $validBitmask) : int
         {
             $option = $bitmask & $validBitmask;
-            if ($option === ($option & -$option)) {
+            if ($option === ($option & -$option))
+            {
                 return $option;
             }
 
@@ -58,7 +86,8 @@
             ];
 
             $validOptions = [];
-            for ($i = $validBitmask & -$validBitmask; $i <= $validBitmask; $i <<= 1) {
+            for ($i = $validBitmask & -$validBitmask; $i <= $validBitmask; $i <<= 1)
+            {
                 $validOptions[] = __CLASS__.'::'.$map[$i];
             }
 

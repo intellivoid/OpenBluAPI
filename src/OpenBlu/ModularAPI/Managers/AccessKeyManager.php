@@ -2,6 +2,7 @@
 
     namespace ModularAPI\Managers;
 
+    use Exception;
     use ModularAPI\Abstracts\AccessKeySearchMethod;
     use ModularAPI\Abstracts\AccessKeyStatus;
     use ModularAPI\DatabaseManager\AccessKeys;
@@ -54,6 +55,7 @@
          * @throws InvalidAccessKeyStatusException
          * @throws NoResultsFoundException
          * @throws UnsupportedSearchMethodException
+         * @throws Exception
          */
         public function createKey(array $usageConfiguration, array $permissionsConfiguration, int $startingState = 0): AccessKey
         {
@@ -63,12 +65,11 @@
             $AccessKeyObject->Signatures = new AccessKey\Signatures();
             $AccessKeyObject->Usage = new AccessKey\Usage();
 
-            $Configuration = ModularAPI::getConfiguration();
+            $IssuerName = $this->modularAPI->getModularApiConfiguration()['IssuerName'];
 
             // Build the signatures
             $CurrentTime = time();
-
-            $AccessKeyObject->Signatures->IssuerName = (string)$Configuration['ModularAPI_IssuerName'];
+            $AccessKeyObject->Signatures->IssuerName = $IssuerName;
 
             $AccessKeyObject->Signatures->TimeSignature = Hashing::generateTimeSignature(
                 $CurrentTime,
