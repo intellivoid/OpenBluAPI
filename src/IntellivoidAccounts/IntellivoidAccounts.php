@@ -116,12 +116,6 @@
         public function __construct()
         {
             $this->acm = new acm(__DIR__, 'Intellivoid Accounts');
-
-            if(file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'configuration.ini') == false)
-            {
-                throw new ConfigurationNotFoundException();
-            }
-
             $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
 
             $this->database = new mysqli(

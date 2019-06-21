@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cda7678f-7133-4d71-b2fe-de9c53287834" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ModularAPI/AutoConfig.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ModularAPI/Managers/AccessKeyManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/Managers/AccessKeyManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ModularAPI/ModularAPI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/ModularAPI.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ModularAPI/configuration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/configuration.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ModularAPI/modular-api.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModularAPI/modular-api.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/AnalyticsManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/AnalyticsManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/Managers/Manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/Managers/Manager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Options.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Options.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Regex.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Abstracts/Regex.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/BufferStream.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/BufferStream.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/DecodingOptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/DecodingOptions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/EncodingOptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/EncodingOptions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/DecodingFailedException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/DecodingFailedException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/EncodingFailedException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/EncodingFailedException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InsufficientDataException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InsufficientDataException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/IntegerOverflowException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/IntegerOverflowException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InvalidOptionException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Exception/InvalidOptionException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Ext.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Ext.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Packet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Packet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Binary.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Binary.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/Type/Map.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/BinaryTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/BinaryTransformer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Extension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Extension.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/MapTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/MapTransformer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/TypeTransformer/Validator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/ZiProto.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/ZiProto/ZiProto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/analytics_manager.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/AnalyticsManager/analytics_manager.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/Managers/RecordManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/Managers/RecordManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/Managers/AccessKeyManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/Managers/AccessKeyManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/ModularAPI.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/ModularAPI.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/configuration.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/modular-api.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/ModularAPI/modular-api.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/OpenBlu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/OpenBlu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/configuration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/configuration.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenBlu/openblu.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenBlu/openblu.json" afterDir="false" />
-    </list>
+    <list default="true" id="cda7678f-7133-4d71-b2fe-de9c53287834" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,9 +112,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="225" />
-    <option name="y" value="101" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="135" />
+    <option name="y" value="206" />
     <option name="width" value="1130" />
     <option name="height" value="624" />
   </component>
@@ -229,12 +189,12 @@
       <workItem from="1561064532717" duration="286000" />
       <workItem from="1561066814684" duration="771000" />
       <workItem from="1561076467125" duration="819000" />
-      <workItem from="1561086036271" duration="30000" />
+      <workItem from="1561086036271" duration="329000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5314000" />
+    <option name="totallyTimeSpent" value="5613000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -246,11 +206,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <frame x="135" y="206" width="1130" height="624" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.27836612" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.34392524" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32943144" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
