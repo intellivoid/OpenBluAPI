@@ -154,11 +154,14 @@
     try
     {
         $Parameters = Request::getParameters($Module->Parameters);
-        checkPlan($AccessKey);
-
-        /** @noinspection PhpIncludeInspection */
-        include($ModuleFile);
-        $Response = Module($AccessKey, $Parameters);
+        $Response = checkPlan($AccessKey);
+        if($Response == null)
+        {
+            /** @noinspection PhpIncludeInspection */
+            include($ModuleFile);
+            $Response = Module($AccessKey, $Parameters);
+            $ExecutionEnd = microtime(true);
+        }
         $ExecutionEnd = microtime(true);
     }
     catch(MissingParameterException $missingParameterException)
