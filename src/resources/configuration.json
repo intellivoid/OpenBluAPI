@@ -1,7 +1,7 @@
 {
-	"NAME": "Demo API",
+	"NAME": "OpenBlu API",
 	"DOCUMENTATION_URL": "https://example.com/",
-	"BASE_PATH": "/openblu",
+	"BASE_PATH": "/",
 	"AVAILABLE": true,
 	"UNAVAILABLE_MESSAGE": "This API service is not available right now",
 	"DEBUG_EXCEPTIONS": true,
@@ -35,22 +35,7 @@
 			},
 			"MODULES": [
 				{
-					"script": "ping", "path": "tests/ping",
-					"available": true, "authentication_required": false,
-					"unavailable_message": "This module is not available at the moment"
-				},
-				{
-					"script": "download", "path": "tests/download",
-					"available": true, "authentication_required": false,
-					"unavailable_message": "This module is not available at the moment"
-				},
-				{
-					"script": "whoami", "path": "tests/whoami",
-					"available": true, "authentication_required": true,
-					"unavailable_message": "This module is not available at the moment"
-				},
-				{
-					"script": "error", "path": "tests/error",
+					"script": "get_servers", "path": "servers/list",
 					"available": true, "authentication_required": true,
 					"unavailable_message": "This module is not available at the moment"
 				}
