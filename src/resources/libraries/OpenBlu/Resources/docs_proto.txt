@@ -1,0 +1,7 @@
+##################################################################
+# Specify the underlying protocol beyond the internet.
+# Note that this setting must be correspond with the listening
+# setting on the VPN Server
+#
+# Specify either 'proto tcp' or 'proto udp'.
+#

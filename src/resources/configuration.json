@@ -17,6 +17,13 @@
 					"NAMESPACE": "IntellivoidAPI",
 					"MAIN_CLASS": "IntellivoidAPI",
 					"CHECK_EXISTS": true
+				},
+				"OpenBlu": {
+					"DIRECTORY_NAME": "OpenBlu",
+					"AUTOLOADER": "OpenBlu.php",
+					"NAMESPACE": "OpenBlu",
+					"MAIN_CLASS": "OpenBlu",
+					"CHECK_EXISTS": true
 				}
 			},
 			"MODULES": [

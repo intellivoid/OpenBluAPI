@@ -1,0 +1,10 @@
+##################################################################
+# The client certificate file (dummy)
+#
+# In some OpenVPN Clients (like iOS or Android), a pair of client
+# certificate and private key must be included on the configuration
+# file to the limitation of the client.
+#
+# So this configuration file has a dummy pair of client certificate
+# and private key.
+#
