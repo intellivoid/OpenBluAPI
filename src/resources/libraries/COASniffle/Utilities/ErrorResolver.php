@@ -164,6 +164,12 @@
                 case 48:
                     return("SUBSCRIPTION PROMOTION NOT APPLICABLE TO PLAN");
 
+                case 49:
+                    return("INSUFFICIENT FUNDS");
+
+                case 50:
+                    return("MISSING PARAMETERS 'subscription_id'");
+
                 default:
                     return("UNKNOWN ERROR");
             }

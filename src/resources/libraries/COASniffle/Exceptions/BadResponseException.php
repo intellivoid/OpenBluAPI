@@ -17,6 +17,6 @@
          */
         public function __construct()
         {
-            parent::__construct("The response given from the server contains malformed data that cannot be parsed". 0, null);
+            parent::__construct("The response given from the server contains malformed data that cannot be parsed", 0, null);
         }
     }

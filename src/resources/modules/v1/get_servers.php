@@ -115,7 +115,7 @@
             if(is_null($validation_response) == false)
             {
                 $this->response_content = json_encode($validation_response['response']);
-                $this->response_code = json_encode($validation_response['http_code']);
+                $this->response_code = $validation_response['response_code'];
 
                 return;
             }
