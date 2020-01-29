@@ -31,6 +31,13 @@
 					"NAMESPACE": "OpenBlu",
 					"MAIN_CLASS": "OpenBlu",
 					"CHECK_EXISTS": true
+				},
+				"COASniffle": {
+					"DIRECTORY_NAME": "COASniffle",
+					"AUTOLOADER": "COASniffle.php",
+					"NAMESPACE": "COASniffle",
+					"MAIN_CLASS": "COASniffle",
+					"CHECK_EXISTS": true
 				}
 			},
 			"MODULES": [
