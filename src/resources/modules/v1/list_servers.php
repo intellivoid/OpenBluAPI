@@ -316,7 +316,7 @@
                 while($Row = $QueryResults->fetch_assoc())
                 {
                     $ResultsArray[] = array(
-                        'public_id' => $Row['public_id'],
+                        'id' => $Row['public_id'],
                         'host_name' => $Row['host_name'],
                         'country' => $Row['country'],
                         'country_short' => $Row['country_short'],
