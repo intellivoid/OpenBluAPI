@@ -40,7 +40,7 @@
          *
          * @var string
          */
-        public $description = "Retrieves a list of all the available servers that are available on OpenBlu";
+        public $description = "Retrieves all the available VPN servers";
 
         /**
          * Optional access record for this module
