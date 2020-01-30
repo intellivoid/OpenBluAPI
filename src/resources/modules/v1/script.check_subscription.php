@@ -3,10 +3,13 @@
     use COASniffle\Exceptions\CoaAuthenticationException;
     use COASniffle\Handlers\COA;
     use Handler\GenericResponses\InternalServerError;
-    use IntellivoidAPI\Objects\AccessRecord;
+use Handler\Handler;
+use IntellivoidAPI\Objects\AccessRecord;
     use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidSubscriptionManager\Exceptions\SubscriptionNotFoundException;
+    use IntellivoidSubscriptionManager\IntellivoidSubscriptionManager;
     use IntellivoidSubscriptionManager\Objects\Subscription;
+    use IntellivoidSubscriptionManager\Utilities\Converter;
     use OpenBlu\Abstracts\SearchMethods\UserSubscriptionSearchMethod;
     use OpenBlu\Exceptions\UserSubscriptionRecordNotFoundException;
     use OpenBlu\Objects\UserSubscription;
@@ -29,6 +32,11 @@
          * @var UserSubscription
          */
         public $user_subscription;
+
+        /**
+         * @var IntellivoidSubscriptionManager
+         */
+        public $intellivoid_subscription_manager;
 
         /**
          * Processes the access key and determines if it used against a valid subscription.
@@ -68,8 +76,9 @@
                 exit();
             }
 
-            /** @var IntellivoidSubscriptionManager\IntellivoidSubscriptionManager $IntellivoidSubscriptionManager */
-            $IntellivoidSubscriptionManager = new IntellivoidSubscriptionManager\IntellivoidSubscriptionManager();
+            /** @var IntellivoidSubscriptionManager $IntellivoidSubscriptionManager */
+            $IntellivoidSubscriptionManager = new IntellivoidSubscriptionManager();
+            $this->intellivoid_subscription_manager = $IntellivoidSubscriptionManager;
 
             try
             {
@@ -105,7 +114,7 @@
 
                 try
                 {
-                    COA::processSubscriptionBilling($Subscription->ID);
+                    $BillingProcessed = COA::processSubscriptionBilling($Subscription->ID);
                 }
                 catch (CoaAuthenticationException $e)
                 {
@@ -119,8 +128,7 @@
                             )
                         ), 403, array(
                             'access_record' => $accessRecord->toArray(),
-                            'user_subscription' => $UserSubscription->toArray(),
-                            'subscription' => $Subscription->toArray()
+                            'user_subscription' => $UserSubscription->toArray()
                         )
                     );
                 }
@@ -129,7 +137,22 @@
                     InternalServerError::executeResponse($e);
                     exit();
                 }
+
+                if($BillingProcessed)
+                {
+                    $Subscription = $IntellivoidSubscriptionManager->getSubscriptionManager()->getSubscription(
+                        SubscriptionSearchMethod::byId, $UserSubscription->SubscriptionID
+                    );
+
+                    $Features = Converter::featuresToSA($Subscription->Properties->Features, true);
+                    $accessRecord->Variables['MAX_SERVER_CONFIGS'] = $Features['SERVER_CONFIGS'];
+                    $accessRecord->Variables['SERVER_CONFIGS'] = 0;
+
+                    $IntellivoidAPI = Handler::getIntellivoidAPI();
+                    $IntellivoidAPI->getAccessKeyManager()->updateAccessRecord($accessRecord);
+                }
             }
+
 
             $this->subscription = $Subscription;
             $this->user_subscription = $UserSubscription;

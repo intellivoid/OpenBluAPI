@@ -8,6 +8,7 @@
     use Handler\Handler;
     use Handler\Interfaces\Response;
     use IntellivoidAPI\Objects\AccessRecord;
+    use IntellivoidSubscriptionManager\Utilities\Converter;
     use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
     use OpenBlu\Abstracts\SearchMethods\VPN;
@@ -161,9 +162,35 @@
                 return null;
             }
 
+            if(isset($this->access_record->Variables['SERVER_CONFIGS']) == false)
+            {
+                $this->access_record->setVariable('SERVER_CONFIGS', 0);
+            }
+
+            if($this->access_record->Variables['MAX_SERVER_CONFIGS'] > 0)
+            {
+                if($this->access_record->Variables['SERVER_CONFIGS'] -1 > $this->access_record->Variables['MAX_SERVER_CONFIGS'])
+                {
+                    $ResponsePayload = array(
+                        'success' => true,
+                        'response_code' => 400,
+                        'error' => array(
+                            'error_code' => 0,
+                            'type' => "CLIENT",
+                            "message" => "Server configuration quota limit reached"
+                        )
+                    );
+                    $this->response_content = json_encode($ResponsePayload);
+                    $this->response_code = (int)$ResponsePayload['response_code'];
+
+                    return null;
+                }
+            }
+
             try
             {
                 $Server = $OpenBlu->getVPNManager()->getVPN(VPN::byPublicID, $Parameters['id']);
+                $this->access_record->Variables['SERVER_CONFIGS'] += 1;
             }
             catch (VPNNotFoundException $e)
             {
