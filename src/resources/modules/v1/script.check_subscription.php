@@ -6,8 +6,10 @@
     use IntellivoidAPI\Objects\AccessRecord;
     use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidSubscriptionManager\Exceptions\SubscriptionNotFoundException;
+    use IntellivoidSubscriptionManager\Objects\Subscription;
     use OpenBlu\Abstracts\SearchMethods\UserSubscriptionSearchMethod;
     use OpenBlu\Exceptions\UserSubscriptionRecordNotFoundException;
+    use OpenBlu\Objects\UserSubscription;
     use OpenBlu\OpenBlu;
 
     /**
@@ -16,85 +18,78 @@
      *
      * Version 1.0.0.0
      */
-
-    /**
-     * Processes the access key and determines if it used against a valid subscription.
-     *
-     * @param OpenBlu $openBlu
-     * @param AccessRecord $accessRecord
-     * @throws Exception
-     */
-    function validate_user_subscription(OpenBlu $openBlu, AccessRecord $accessRecord)
+    class SubscriptionValidation
     {
-        try
-        {
-            $UserSubscription = $openBlu->getUserSubscriptionManager()->getUserSubscription(
-                UserSubscriptionSearchMethod::byAccessRecordID, $accessRecord->ID
-            );
-        }
-        catch (UserSubscriptionRecordNotFoundException $e)
-        {
-            return script_cs_build_response(array(
-                'success' => false,
-                'response_code' => 403,
-                'error_message' => 'Subscription not found'
-                ), 403, array(
-                    'access_record' => $accessRecord->toArray()
-                )
-            );
-        }
-        catch(Exception $e)
-        {
-            InternalServerError::executeResponse($e);
-            exit();
-        }
+        /**
+         * @var Subscription
+         */
+        public $subscription;
 
-        /** @var IntellivoidSubscriptionManager\IntellivoidSubscriptionManager $IntellivoidSubscriptionManager */
-        $IntellivoidSubscriptionManager = new IntellivoidSubscriptionManager\IntellivoidSubscriptionManager();
+        /**
+         * @var UserSubscription
+         */
+        public $user_subscription;
 
-        try
+        /**
+         * Processes the access key and determines if it used against a valid subscription.
+         *
+         * @param OpenBlu $openBlu
+         * @param AccessRecord $accessRecord
+         * @return null|array
+         * @throws Exception
+         */
+        public function validateUserSubscription(OpenBlu $openBlu, AccessRecord $accessRecord)
         {
-            $Subscription = $IntellivoidSubscriptionManager->getSubscriptionManager()->getSubscription(
-                SubscriptionSearchMethod::byId, $UserSubscription->SubscriptionID
-            );
-        }
-        catch (SubscriptionNotFoundException $e)
-        {
-            return script_cs_build_response(array(
-                'success' => false,
-                'response_code' => 403,
-                'error_message' => 'You do not have an active subscription with this service'
-                ), 403, array(
-                    'access_record' => $accessRecord->toArray(),
-                    'user_subscription' => $UserSubscription->toArray()
-                )
-            );
-        }
-        catch(Exception $e)
-        {
-            InternalServerError::executeResponse($e);
-            exit();
-        }
+            try
+            {
+                $UserSubscription = $openBlu->getUserSubscriptionManager()->getUserSubscription(
+                    UserSubscriptionSearchMethod::byAccessRecordID, $accessRecord->ID
+                );
+            }
+            catch (UserSubscriptionRecordNotFoundException $e)
+            {
+                return $this::buildResponse(array(
+                    'success' => false,
+                    'response_code' => 403,
+                    'error' => array(
+                            'error_code' => 0,
+                            'type' => "SUBSCRIPTION",
+                            "message" => "There was an error while trying to verify your subscription"
+                        )
+                    ), 403, array(
+                        'access_record' => $accessRecord->toArray()
+                    )
+                );
 
-        if((int)time() > $Subscription->NextBillingCycle)
-        {
-            new COASniffle\COASniffle();
+            }
+            catch(Exception $e)
+            {
+                InternalServerError::executeResponse($e);
+                exit();
+            }
+
+            /** @var IntellivoidSubscriptionManager\IntellivoidSubscriptionManager $IntellivoidSubscriptionManager */
+            $IntellivoidSubscriptionManager = new IntellivoidSubscriptionManager\IntellivoidSubscriptionManager();
 
             try
             {
-                COA::processSubscriptionBilling($Subscription->ID);
+                $Subscription = $IntellivoidSubscriptionManager->getSubscriptionManager()->getSubscription(
+                    SubscriptionSearchMethod::byId, $UserSubscription->SubscriptionID
+                );
             }
-            catch (CoaAuthenticationException $e)
+            catch (SubscriptionNotFoundException $e)
             {
-                return script_cs_build_response(array(
+                return $this::buildResponse(array(
                     'success' => false,
                     'response_code' => 403,
-                    'coa_error_code' => $e->getCode(),
-                    'error_message' => $e->getMessage()
-                ), 403, array(
+                    'error' => array(
+                            'error_code' => 0,
+                            'type' => "SUBSCRIPTION",
+                            "message" => "You do not have an active subscription with this service"
+                        )
+                    ), 403, array(
                         'access_record' => $accessRecord->toArray(),
-                        'user_subscription' => $UserSubscription->toArray(),
-                        'subscription' => $Subscription->toArray()
+                        'user_subscription' => $UserSubscription->toArray()
                     )
                 );
             }
@@ -103,22 +98,60 @@
                 InternalServerError::executeResponse($e);
                 exit();
             }
+
+            if((int)time() > $Subscription->NextBillingCycle)
+            {
+                new COASniffle\COASniffle();
+
+                try
+                {
+                    COA::processSubscriptionBilling($Subscription->ID);
+                }
+                catch (CoaAuthenticationException $e)
+                {
+                    return $this::buildResponse(array(
+                        'success' => false,
+                        'response_code' => 403,
+                        'error' => array(
+                                'error_code' => $e->getCode(),
+                                'type' => "SUBSCRIPTION",
+                                "message" => $e->getMessage()
+                            )
+                        ), 403, array(
+                            'access_record' => $accessRecord->toArray(),
+                            'user_subscription' => $UserSubscription->toArray(),
+                            'subscription' => $Subscription->toArray()
+                        )
+                    );
+                }
+                catch(Exception $e)
+                {
+                    InternalServerError::executeResponse($e);
+                    exit();
+                }
+            }
+
+            $this->subscription = $Subscription;
+            $this->user_subscription = $UserSubscription;
+
+            return null;
+        }
+
+        /**
+         * Builds a standard response which is understood by modules
+         *
+         * @param array $response_content
+         * @param int $response_code
+         * @param array $debugging_info
+         * @return array
+         */
+        private static function buildResponse(array $response_content, int $response_code, array $debugging_info): array
+        {
+            return array(
+                'response' => $response_content,
+                'response_code' => (int)$response_code,
+                'debug' => $debugging_info
+            );
         }
     }
 
-    /**
-     * Builds a standard response which is understood by modules
-     *
-     * @param array $response_content
-     * @param int $response_code
-     * @param array $debugging_info
-     * @return array
-     */
-    function script_cs_build_response(array $response_content, int $response_code, array $debugging_info): array
-    {
-        return array(
-            'response' => $response_content,
-            'response_code' => (int)$response_code,
-            'debug' => $debugging_info
-        );
-    }

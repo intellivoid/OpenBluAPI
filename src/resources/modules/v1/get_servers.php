@@ -2,10 +2,19 @@
 
     namespace modules\v1;
 
+    use Exception;
     use Handler\Abstracts\Module;
+    use Handler\GenericResponses\InternalServerError;
+    use Handler\Handler;
     use Handler\Interfaces\Response;
     use IntellivoidAPI\Objects\AccessRecord;
+    use msqg\Abstracts\SortBy;
+    use msqg\QueryBuilder;
+    use OpenBlu\Exceptions\DatabaseException;
     use OpenBlu\OpenBlu;
+    use SubscriptionValidation;
+
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'script.check_subscription.php');
 
     /**
      * Class get_servers
@@ -110,21 +119,221 @@
             $OpenBlu = new OpenBlu();
 
             // Import the check subscription script and execute it
-            include_once(__DIR__ . DIRECTORY_SEPARATOR . 'script.check_subscription.php');
-            $validation_response = validate_user_subscription($OpenBlu, $this->access_record);
-            if(is_null($validation_response) == false)
-            {
-                $this->response_content = json_encode($validation_response['response']);
-                $this->response_code = $validation_response['response_code'];
+            $SubscriptionValidation = new SubscriptionValidation();
 
-                return;
+            try
+            {
+                $ValidationResponse = $SubscriptionValidation->validateUserSubscription($OpenBlu, $this->access_record);
+            }
+            catch (Exception $e)
+            {
+                InternalServerError::executeResponse($e);
+                exit();
+            }
+
+            if(is_null($ValidationResponse) == false)
+            {
+                $this->response_content = json_encode($ValidationResponse['response']);
+                $this->response_code = $ValidationResponse['response_code'];
+
+                return null;
+            }
+
+            $Parameters = Handler::getParameters(true, true);
+
+            $where = null;
+            $where_value = null;
+
+            if(isset($Parameters['filter']))
+            {
+                if(isset($Parameters['by']))
+                {
+                    switch(strtolower($Parameters['filter']))
+                    {
+                        case 'country':
+                            if(strlen($Parameters['by']) > 50)
+                            {
+                                $ResponsePayload = array(
+                                    'success' => true,
+                                    'response_code' => 400,
+                                    'error' => array(
+                                        'error_code' => 0,
+                                        'type' => "CLIENT",
+                                        "message" => "Invalid value for the parameter 'by'"
+                                    )
+                                );
+                                $this->response_content = json_encode($ResponsePayload);
+                                $this->response_code = (int)$ResponsePayload['response_code'];
+
+                                return null;
+                            }
+
+                            $where = $OpenBlu->database->real_escape_string('country');
+                            $where_value = $OpenBlu->database->real_escape_string($Parameters['by']);
+                            break;
+
+                        case 'country_short':
+                            $where = $OpenBlu->database->real_escape_string('country_short');
+                            $where_value = strtoupper(substr($Parameters['by'], 0, 2));
+                            $where_value = $OpenBlu->database->real_escape_string($where_value);
+                            break;
+
+                        default:
+                            $ResponsePayload = array(
+                                'success' => true,
+                                'response_code' => 400,
+                                'error' => array(
+                                    'error_code' => 0,
+                                    'type' => "CLIENT",
+                                    "message" => "Invalid value for the parameter 'filter'"
+                                )
+                            );
+                            $this->response_content = json_encode($ResponsePayload);
+                            $this->response_code = (int)$ResponsePayload['response_code'];
+
+                            return null;
+                    }
+                }
+                else
+                {
+                    $ResponsePayload = array(
+                        'success' => true,
+                        'response_code' => 400,
+                        'error' => array(
+                            'error_code' => 0,
+                            'type' => "CLIENT",
+                            "message" => "Missing parameter 'by'"
+                        )
+                    );
+                    $this->response_content = json_encode($ResponsePayload);
+                    $this->response_code = (int)$ResponsePayload['response_code'];
+
+                    return null;
+                }
+            }
+
+            $order_by = "last_updated";
+            $sort_by = SortBy::descending;
+
+            if(isset($Parameters['sort_by']))
+            {
+                switch($Parameters['sort_by'])
+                {
+                    case 'descending':
+                        $sort_by = SortBy::descending;
+                        break;
+
+                    case 'ascending':
+                        $sort_by = SortBy::ascending;
+                        break;
+
+                    default:
+                        $ResponsePayload = array(
+                            'success' => true,
+                            'response_code' => 400,
+                            'error' => array(
+                                'error_code' => 0,
+                                'type' => "CLIENT",
+                                "message" => "Invalid value for the parameter 'sort_by'"
+                            )
+                        );
+                        $this->response_content = json_encode($ResponsePayload);
+                        $this->response_code = (int)$ResponsePayload['response_code'];
+
+                        return null;
+                }
+            }
+
+            if(isset($Parameters['order_by']))
+            {
+                switch(strtolower($Parameters['order_by']))
+                {
+                    case 'score':
+                        $order_by = $OpenBlu->database->real_escape_string('score');
+                        break;
+
+                    case 'ping':
+                        $order_by = $OpenBlu->database->real_escape_string('ping');
+                        break;
+
+                    case 'sessions':
+                        $order_by = $OpenBlu->database->real_escape_string('sessions');
+                        break;
+
+                    case 'total_sessions':
+                        $order_by = $OpenBlu->database->real_escape_string('total_sessions');
+                        break;
+
+                    case 'last_updated':
+                        $order_by = $OpenBlu->database->real_escape_string('last_updated');
+                        break;
+
+                    case 'created':
+                        $order_by = $OpenBlu->database->real_escape_string('created');
+                        break;
+
+                    default:
+                        $ResponsePayload = array(
+                            'success' => true,
+                            'response_code' => 400,
+                            'error' => array(
+                                'error_code' => 0,
+                                'type' => "CLIENT",
+                                "message" => "Invalid value for the parameter 'order_by'"
+                            )
+                        );
+                        $this->response_content = json_encode($ResponsePayload);
+                        $this->response_code = (int)$ResponsePayload['response_code'];
+
+                        return null;
+                }
+            }
+
+            $Query = QueryBuilder::select('vpns', [
+                'public_id',
+                'country',
+                'host_name',
+                'score',
+                'ping',
+                'country',
+                'country_short',
+                'sessions',
+                'total_sessions',
+                'last_updated',
+                'created'
+            ], $where, $where_value, $order_by, $sort_by);
+            $QueryResults = $OpenBlu->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                InternalServerError::executeResponse(new DatabaseException($OpenBlu->database->error, $Query));
+                exit();
+            }
+            else
+            {
+                $ResultsArray = [];
+
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $ResultsArray[] = array(
+                        'public_id' => $Row['public_id'],
+                        'host_name' => $Row['host_name'],
+                        'country' => $Row['country'],
+                        'country_short' => $Row['country_short'],
+                        'score' => (int)$Row['score'],
+                        'ping' =>(int) $Row['ping'],
+                        'sessions' => (int)$Row['sessions'],
+                        'total_sessions' => (int)$Row['total_sessions'],
+                        'last_updated' => (int)$Row['last_updated'],
+                        'created' => (int)$Row['created']
+                    );
+                }
             }
 
             $ResponsePayload = array(
                 'success' => true,
                 'response_code' => 200,
-                'payload' => $this->access_record->toArray(),
-                'reference_code' => null
+                'servers' => $ResultsArray,
             );
 
             $this->response_content = json_encode($ResponsePayload);
