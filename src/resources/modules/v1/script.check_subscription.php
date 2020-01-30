@@ -3,8 +3,8 @@
     use COASniffle\Exceptions\CoaAuthenticationException;
     use COASniffle\Handlers\COA;
     use Handler\GenericResponses\InternalServerError;
-use Handler\Handler;
-use IntellivoidAPI\Objects\AccessRecord;
+    use Handler\Handler;
+    use IntellivoidAPI\Objects\AccessRecord;
     use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidSubscriptionManager\Exceptions\SubscriptionNotFoundException;
     use IntellivoidSubscriptionManager\IntellivoidSubscriptionManager;
@@ -58,13 +58,13 @@ use IntellivoidAPI\Objects\AccessRecord;
             {
                 return $this::buildResponse(array(
                     'success' => false,
-                    'response_code' => 403,
+                    'response_code' => 500,
                     'error' => array(
                             'error_code' => 0,
                             'type' => "SUBSCRIPTION",
                             "message" => "There was an error while trying to verify your subscription"
                         )
-                    ), 403, array(
+                    ), 500, array(
                         'access_record' => $accessRecord->toArray()
                     )
                 );
@@ -120,13 +120,13 @@ use IntellivoidAPI\Objects\AccessRecord;
                 {
                     return $this::buildResponse(array(
                         'success' => false,
-                        'response_code' => 403,
+                        'response_code' => 500,
                         'error' => array(
                                 'error_code' => $e->getCode(),
                                 'type' => "SUBSCRIPTION",
                                 "message" => $e->getMessage()
                             )
-                        ), 403, array(
+                        ), 500, array(
                             'access_record' => $accessRecord->toArray(),
                             'user_subscription' => $UserSubscription->toArray()
                         )
