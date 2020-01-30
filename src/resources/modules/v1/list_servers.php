@@ -154,7 +154,7 @@
                             if(strlen($Parameters['by']) > 50)
                             {
                                 $ResponsePayload = array(
-                                    'success' => true,
+                                    'success' => false,
                                     'response_code' => 400,
                                     'error' => array(
                                         'error_code' => 0,
@@ -180,7 +180,7 @@
 
                         default:
                             $ResponsePayload = array(
-                                'success' => true,
+                                'success' => false,
                                 'response_code' => 400,
                                 'error' => array(
                                     'error_code' => 0,
@@ -197,7 +197,7 @@
                 else
                 {
                     $ResponsePayload = array(
-                        'success' => true,
+                        'success' => false,
                         'response_code' => 400,
                         'error' => array(
                             'error_code' => 0,
@@ -229,7 +229,7 @@
 
                     default:
                         $ResponsePayload = array(
-                            'success' => true,
+                            'success' => false,
                             'response_code' => 400,
                             'error' => array(
                                 'error_code' => 0,
@@ -274,7 +274,7 @@
 
                     default:
                         $ResponsePayload = array(
-                            'success' => true,
+                            'success' => false,
                             'response_code' => 400,
                             'error' => array(
                                 'error_code' => 0,
