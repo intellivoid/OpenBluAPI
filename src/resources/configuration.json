@@ -42,7 +42,7 @@
 			},
 			"MODULES": [
 				{
-					"script": "get_servers", "path": "servers/list",
+					"script": "list_servers", "path": "servers/list",
 					"available": true, "authentication_required": true,
 					"unavailable_message": "This module is not available at the moment"
 				}

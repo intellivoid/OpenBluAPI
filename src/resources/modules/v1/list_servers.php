@@ -19,14 +19,14 @@
     /**
      * Class get_servers
      */
-    class get_servers extends Module implements  Response
+    class list_servers extends Module implements  Response
     {
         /**
          * The name of the module
          *
          * @var string
          */
-        public $name = 'get_servers';
+        public $name = 'list_servers';
 
         /**
          * The version of this module
