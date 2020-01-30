@@ -148,7 +148,7 @@
             if(isset($Parameters['id']) == false)
             {
                 $ResponsePayload = array(
-                    'success' => true,
+                    'success' => false,
                     'response_code' => 400,
                     'error' => array(
                         'error_code' => 0,
@@ -172,8 +172,8 @@
                 if($this->access_record->Variables['SERVER_CONFIGS'] -1 > $this->access_record->Variables['MAX_SERVER_CONFIGS'])
                 {
                     $ResponsePayload = array(
-                        'success' => true,
-                        'response_code' => 400,
+                        'success' => false,
+                        'response_code' => 429,
                         'error' => array(
                             'error_code' => 0,
                             'type' => "CLIENT",
@@ -195,7 +195,7 @@
             catch (VPNNotFoundException $e)
             {
                 $ResponsePayload = array(
-                    'success' => true,
+                    'success' => false,
                     'response_code' => 404,
                     'error' => array(
                         'error_code' => 0,
