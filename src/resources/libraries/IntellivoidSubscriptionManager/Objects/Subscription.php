@@ -147,7 +147,7 @@
         {
             return array(
                 'id' => (int)$this->ID,
-                'public_id' => (int)$this->PublicID,
+                'public_id' => $this->PublicID,
                 'subscription_plan_id' => (int)$this->SubscriptionPlanID,
                 'account_id' => (int)$this->AccountID,
                 'active' => (bool)$this->Active,
@@ -176,7 +176,7 @@
 
             if(isset($data['public_id']))
             {
-                $SubscriptionObject->PublicID = (int)$data['public_id'];
+                $SubscriptionObject->PublicID = $data['public_id'];
             }
 
             if(isset($data['subscription_plan_id']))
