@@ -8,12 +8,7 @@
     use Handler\Handler;
     use Handler\Interfaces\Response;
     use IntellivoidAPI\Objects\AccessRecord;
-    use IntellivoidSubscriptionManager\Utilities\Converter;
-    use msqg\Abstracts\SortBy;
-    use msqg\QueryBuilder;
     use OpenBlu\Abstracts\SearchMethods\VPN;
-    use OpenBlu\Exceptions\DatabaseException;
-    use OpenBlu\Exceptions\InvalidSearchMethodException;
     use OpenBlu\Exceptions\VPNNotFoundException;
     use OpenBlu\OpenBlu;
     use SubscriptionValidation;
@@ -65,7 +60,7 @@
          *
          * @var int
          */
-        private $response_code;
+        private $response_code = 200;
 
         /**
          * @inheritDoc
