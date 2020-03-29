@@ -18,7 +18,7 @@
 # means, this configuration file was downloaded from the OpenBlu
 # Web Application
 #
-# For more information, see https://openblu.intellivoid.info
+# For more information, see https://openblu.intellivoid.net
 #
 # If you paid for this configuration file, demand a refund
 # because this configuration file can be downloaded for free
