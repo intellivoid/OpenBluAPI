@@ -33,7 +33,7 @@
          *
          * @var string
          */
-        public $version = '1.0.0.0';
+        public $version = '1.0.0.1';
 
         /**
          * The description of this module
