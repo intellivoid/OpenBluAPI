@@ -135,13 +135,11 @@
             $id = (int)$userSubscription->ID;
             $account_id = (int)$userSubscription->AccountID;
             $subscription_id = (int)$userSubscription->SubscriptionID;
-            $access_record_id = (int)$userSubscription->AccessRecordID;
             $status = (int)$userSubscription->Status;
 
             $Query = QueryBuilder::update('user_subscriptions', array(
                 'account_id' => $account_id,
                 'subscription_id' => $subscription_id,
-                'access_record_id' => $access_record_id,
                 'status' => $status
             ), 'id', $id);
             $QueryResults = $this->openBlu->database->query($Query);

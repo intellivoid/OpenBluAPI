@@ -4,6 +4,7 @@
 
     use acm\acm;
     use acm\Objects\Schema;
+    use DeepAnalytics\DeepAnalytics;
     use Exception;
     use mysqli;
     use OpenBlu\Managers\RecordManager;
@@ -58,6 +59,11 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'msqg' . DIRECTORY_SEPARATOR . 'msqg.php');
     }
 
+    if(class_exists('DeepAnalytics\DeepAnalytics') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'DeepAnalytics' . DIRECTORY_SEPARATOR . 'DeepAnalytics.php');
+    }
+
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
 
     /**
@@ -103,6 +109,11 @@
         private $UserSubscriptionManager;
 
         /**
+         * @var DeepAnalytics
+         */
+        private $DeepAnalytics;
+
+        /**
          * OpenBlu constructor.
          * @throws Exception
          */
@@ -138,6 +149,8 @@
             $this->RecordManager = new RecordManager($this);
             $this->UserSubscriptionManager = new UserSubscriptionManager($this);
             $this->VPNManager = new VPNManager($this);
+
+            $this->DeepAnalytics = new DeepAnalytics();
         }
 
         /**
@@ -195,5 +208,13 @@
         public function getUserSubscriptionManager(): UserSubscriptionManager
         {
             return $this->UserSubscriptionManager;
+        }
+
+        /**
+         * @return DeepAnalytics
+         */
+        public function getDeepAnalytics(): DeepAnalytics
+        {
+            return $this->DeepAnalytics;
         }
     }
