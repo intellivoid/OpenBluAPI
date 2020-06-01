@@ -336,6 +336,8 @@
                 'servers' => $ResultsArray,
             );
 
+            $OpenBlu->getDeepAnalytics()->tally('openblu_api', 'list_servers', 0);
+            $OpenBlu->getDeepAnalytics()->tally('openblu_api', 'list_servers', $this->access_record->ID);
             $this->response_content = json_encode($ResponsePayload);
             $this->response_code = (int)$ResponsePayload['response_code'];
         }
