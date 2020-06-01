@@ -240,6 +240,8 @@
                 )
             );
 
+            $OpenBlu->getDeepAnalytics()->tally('openblu_api', 'get_server', 0);
+            $OpenBlu->getDeepAnalytics()->tally('openblu_api', 'get_server', $this->access_record->ID);
             $this->response_content = json_encode($ResponsePayload);
             $this->response_code = (int)$ResponsePayload['response_code'];
         }
