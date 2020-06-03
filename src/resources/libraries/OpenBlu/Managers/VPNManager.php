@@ -98,6 +98,7 @@
 
             if($QueryResults == true)
             {
+                $this->openBlu->getDeepAnalytics()->tally('openblu', 'registered_servers', 0);
                 return true;
             }
             else
@@ -230,6 +231,7 @@
 
             if($QueryResults == true)
             {
+                $this->openBlu->getDeepAnalytics()->tally('openblu', 'updated_servers', 0);
                 return true;
             }
             else
