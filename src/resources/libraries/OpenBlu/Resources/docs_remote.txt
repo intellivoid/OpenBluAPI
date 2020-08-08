@@ -1,7 +1,0 @@
-##################################################################
-# The destination hostname / IP address and port number of the
-# target VPN Server.
-#
-# You have to specify as 'remote <HOSTNAME> <PORT>'. you can also
-# specify the IP address instead of the hostname.
-#
