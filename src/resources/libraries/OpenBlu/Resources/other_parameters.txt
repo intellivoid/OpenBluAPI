@@ -1,4 +1,0 @@
-##################################################################
-# Other OpenVPN Configuration Parameters, you shouldn't modify
-# any of this unless you have a particular need
-#

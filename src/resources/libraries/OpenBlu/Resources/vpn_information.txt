@@ -1,7 +1,0 @@
-##################################################################
-# VPN Server information
-#
-# OpenBlu Server ID: %PUBLIC_ID%
-# Country: %COUNTRY%
-# Score: %SCORE%
-#
