@@ -146,7 +146,7 @@
                     'success' => false,
                     'response_code' => 400,
                     'error' => array(
-                        'error_code' => 0,
+                        'error_code' => 3,
                         'type' => "CLIENT",
                         "message" => "Missing parameter 'id'"
                     )
@@ -170,7 +170,7 @@
                         'success' => false,
                         'response_code' => 429,
                         'error' => array(
-                            'error_code' => 0,
+                            'error_code' => 2,
                             'type' => "CLIENT",
                             "message" => "Server configuration quota limit reached"
                         )
@@ -193,7 +193,7 @@
                     'success' => false,
                     'response_code' => 404,
                     'error' => array(
-                        'error_code' => 0,
+                        'error_code' => 1,
                         'type' => "CLIENT",
                         "message" => "VPN Server not found"
                     )

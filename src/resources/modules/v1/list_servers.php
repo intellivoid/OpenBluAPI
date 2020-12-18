@@ -157,7 +157,7 @@
                                     'success' => false,
                                     'response_code' => 400,
                                     'error' => array(
-                                        'error_code' => 0,
+                                        'error_code' => 4,
                                         'type' => "CLIENT",
                                         "message" => "Invalid value for the parameter 'by'"
                                     )
@@ -183,7 +183,7 @@
                                 'success' => false,
                                 'response_code' => 400,
                                 'error' => array(
-                                    'error_code' => 0,
+                                    'error_code' => 5,
                                     'type' => "CLIENT",
                                     "message" => "Invalid value for the parameter 'filter'"
                                 )
@@ -200,7 +200,7 @@
                         'success' => false,
                         'response_code' => 400,
                         'error' => array(
-                            'error_code' => 0,
+                            'error_code' => 6,
                             'type' => "CLIENT",
                             "message" => "Missing parameter 'by'"
                         )
@@ -232,7 +232,7 @@
                             'success' => false,
                             'response_code' => 400,
                             'error' => array(
-                                'error_code' => 0,
+                                'error_code' => 7,
                                 'type' => "CLIENT",
                                 "message" => "Invalid value for the parameter 'sort_by'"
                             )
@@ -277,7 +277,7 @@
                             'success' => false,
                             'response_code' => 400,
                             'error' => array(
-                                'error_code' => 0,
+                                'error_code' => 8,
                                 'type' => "CLIENT",
                                 "message" => "Invalid value for the parameter 'order_by'"
                             )
